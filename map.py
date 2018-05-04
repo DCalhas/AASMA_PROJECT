@@ -3,9 +3,10 @@ import sys
 import matplotlib.pyplot as plt
 import networkx as nx
 
+#erdos_renyi_graph(n, p, seed=None, directed=False)
+#strongly_connected_components (alternativa)
+G = nx.erdos_renyi_graph(10, 0.05, seed=123, directed=False) # 5x5 grid
 
-
-G = nx.grid_2d_graph(5, 5)  # 5x5 grid
 try:  # Python 2.6+
     nx.write_adjlist(G, sys.stdout)  # write adjacency list to screen
 except TypeError:  # Python 3.x

@@ -1,14 +1,10 @@
 class Client:
-
-    def __init__(self, id, local):
+	#remove local from client, what if client wants it sent to another local?
+    def __init__(self, id):
         self.id = id
-        self.local = local
 
     def getId(self, id):
         return self.id
 
-    def getLocal(self, local):
-        return self.local
-
-    def makeOffer(self, start, amount, money):
-        return list(start, self.local, amount, money)
+    def makeOffer(self, source, dest, amount, money):
+        return [source, dest, amount, money]

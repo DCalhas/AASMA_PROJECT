@@ -23,7 +23,7 @@ class Bus(Truck):
 
 
     def __init__(self, id, local, capacity):
-        Truck.__init__(id, local)
+        Truck.__init__(self, id, local)
 
         self.capacity = capacity
 
@@ -36,7 +36,7 @@ class Bus(Truck):
 
 class DeliveryTruck(Truck):
     def __init__(self, id, local, volume_capacity):
-        Truck.__init__(id, local)
+        Truck.__init__(self, id, local)
 
         self.volume_capacity = volume_capacity
 

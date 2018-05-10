@@ -33,7 +33,8 @@ class Bus(Truck):
 
 
 
-class GoodsTransport(Truck):
+
+class DeliveryTruck(Truck):
     def __init__(self, id, local, volume_capacity):
         Truck.__init__(id, local)
 
@@ -43,4 +44,3 @@ class GoodsTransport(Truck):
     def getCapacity(self):
         return self.volume_capacity
 
-        

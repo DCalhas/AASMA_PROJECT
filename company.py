@@ -1,28 +1,29 @@
 class Company:
 
-    def __init__(self, id, list_trucks, profit, list_clients):
-        _id = id
-        _trucks = list_trucks
-        _profit = 0
-        _clients = list_clients
+    def __init__(self, id, list_trucks):
+        self.id = id
+        self.trucks = list_trucks
+        self.profit = 0
 
     def getID(self):
-        return _id
+        return self.id
 
     def addTruck(self, truck):
-        _trucks.append(truck)
+        self.trucks.append(truck)
 
     def delTruck(self, truck):
-        _trucks.remove(truck)
-
-    def addClient(self, client):
-        _clients.append(client)
-
-    def delClient(self, client):
-        _clients.remove(client)
+        self.trucks.remove(truck)
 
     def getProfit(self):
-        return _profit
+        return self.profit
 
     def setProfit(self, profit):
-        _profit = profit
+        self.profit = profit
+
+    def evaluateOffer(self, offer):
+        start = offer[0]
+        finish = offer[1]
+        amount = offer[2]
+        money = offer[3]
+
+        

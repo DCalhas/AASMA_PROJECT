@@ -1,20 +1,26 @@
 class Truck:
 
-    def __init__(self, id, capacity):
-        _id = id
-        _capacity = capacity
-        _gas = 0
-        _available = True
+    def __init__(self, id, capacity, local):
+        self.id = id
+        self.capacity = capacity
+        self.gas = 0
+        self.available = True
+        self.local = local
 
     def getID(self):
-        return _id
+        return self.id
 
     def getCapacity(self):
-        return _capacity
+        return self.capacity
 
     def setCapacity(self, capacity):
-        _capacity = capacity
+        self.capacity = capacity
 
     def fillGas(self, amount):
-        _gas += amount
-    
+        self.gas += amount
+
+    def getLocal(self):
+        return self.local
+
+    def setLocal(self, local):
+        self.local = local

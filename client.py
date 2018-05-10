@@ -1,14 +1,14 @@
 class Client:
 
     def __init__(self, id, local):
-        _id = id
-        _local = local
+        self.id = id
+        self.local = local
 
     def getId(self, id):
-        return _id
+        return self.id
 
     def getLocal(self, local):
-        return _local
+        return self.local
 
-    def makeOffer(self, start, finish, amount):
-        return list(start, finish, amount)
+    def makeOffer(self, start, amount, money):
+        return list(start, self.local, amount, money)

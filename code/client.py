@@ -9,7 +9,7 @@ class Client:
 
     def makeOffer(self, source, dest, amount, money):
         return [source, dest, amount, money]
-
+        
     def getUtility(good, deliveryTime):
     	mood = np.random.uniform(0, 1)
 

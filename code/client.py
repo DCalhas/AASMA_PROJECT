@@ -8,3 +8,8 @@ class Client:
 
     def makeOffer(self, source, dest, amount, money):
         return [source, dest, amount, money]
+
+    def getUtility(good, price, deliveryTime):
+    	mood = np.random.uniform(0, 1)
+
+    	return mood * (price * deliveryTime**2)

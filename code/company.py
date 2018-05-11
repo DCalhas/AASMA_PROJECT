@@ -39,8 +39,9 @@ class Company:
         amount = offer[2]
         money = offer[3]
 
-    def getUtility(self, money, distance):
-        return (money - distance)/money > money*0.2
+    def getUtility(self, distance):
+        #put 0.2 after, if we organize the trucks with the products
+        return distance * 1.2
 
     def buyTrucks(self, policy):
 

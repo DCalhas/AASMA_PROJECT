@@ -74,7 +74,7 @@ class FiftyTruck(DeliveryTruck):
         return self.volume_capacity
 
     def getPrice():
-        25
+        return 25
 
 class SeventyTruck(DeliveryTruck):
     def __init__(self, id, local, volume_capacity):
@@ -84,7 +84,4 @@ class SeventyTruck(DeliveryTruck):
         return self.volume_capacity
 
     def getPrice():
-        50
-
-
-
+        return 50

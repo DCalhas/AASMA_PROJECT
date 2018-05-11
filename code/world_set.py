@@ -12,7 +12,12 @@ districts = {"Lisboa": (0, 50), "Setubal": (0, 40), "Beja": (10, 30), "Evora": (
 			"Vila Real": (10, 100), "Viseu": (10, 70), "Braga": (10, 90), "Braganca": (20, 100)}
 
 
-#def step():
+
+def step(clients, companies):
+
+	client_offering = np.random.choice(clients)
+	
+	broadcastOffer(client_offering, 1)
 
 def setupWorld(ncli, ntrucks, nbuses, ncompanies):
 	clients = []
@@ -40,5 +45,10 @@ def setupWorld(ncli, ntrucks, nbuses, ncompanies):
 	return clients, trucks, buses, companies
 
 
+if __name__ == "__main__":
 
-setupWorld(4, 4, 4, 4)
+
+	clients, trucks, buses, companies = setupWorld(4, 4, 4, 4)
+
+
+	step(clients, companies)

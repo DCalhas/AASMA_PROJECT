@@ -26,4 +26,5 @@ class Company:
         amount = offer[2]
         money = offer[3]
 
-        
+    def getUtility(money, distance):
+        return money * distance

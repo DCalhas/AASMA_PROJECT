@@ -1,14 +1,15 @@
 import truck
+from random import randint
 
 class Company:
 
-    def __init__(self, id, list_trucks, budget, local):
+    def __init__(self, id, budget, local):
         self.id = id
-        self.trucks = list_trucks
+        self.trucks = []
         self.profit = budget
         self.local = local
 
-    def getID(self):
+    def getId(self):
         return self.id
 
     def addTruck(self, truck):
@@ -16,6 +17,9 @@ class Company:
 
     def delTruck(self, truck):
         self.trucks.remove(truck)
+
+    def getTrucks(self):
+        return self.trucks
 
     def getProfit(self):
         return self.profit
@@ -42,13 +46,13 @@ class Company:
 
     #[1,2,3,4] 1: curto pessoas, 2: curto mercadorias, 3: longo pessoas, 4: longo mercadorias
         if policy == 1:
-            x = truck.FiftyBus()
+            x = truck.FiftyBus(randint(0, 100), self, 5)
         elif policy == 2:
-            x = truck.FiftyTruck()
+            x = truck.FiftyTruck(randint(0, 100), self, 7)
         elif policy == 3:
-            x = truck.SeventyBus()
+            x = truck.SeventyBus(randint(0, 100), self, 10)
         elif policy == 4:
-            x = truck.SeventyTruck()
+            x = truck.SeventyTruck(randint(0, 100), self, 14)
 
         self.profit -= x.getPrice()
-        addTruck(x)
+        self.addTruck(x)

@@ -47,13 +47,13 @@ class Company:
 
     #[1,2,3,4] 1: curto pessoas, 2: curto mercadorias, 3: longo pessoas, 4: longo mercadorias
         if policy == 1:
-            x = truck.FiftyBus(randint(0, 100), self, 5)
+            x = truck.FiftyBus(randint(0, 100), self)
         elif policy == 2:
-            x = truck.FiftyTruck(randint(0, 100), self, 7)
+            x = truck.FiftyTruck(randint(0, 100), self)
         elif policy == 3:
-            x = truck.SeventyBus(randint(0, 100), self, 10)
+            x = truck.SeventyBus(randint(0, 100), self)
         elif policy == 4:
-            x = truck.SeventyTruck(randint(0, 100), self, 14)
+            x = truck.SeventyTruck(randint(0, 100), self)
 
         self.profit -= x.getPrice()
         self.addTruck(x)

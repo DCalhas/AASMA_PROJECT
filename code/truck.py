@@ -30,10 +30,10 @@ class Bus(Truck):
         Truck.__init__(self, id, owner)
 
 class FiftyBus(Bus):
-    def __init__(self, id, owner, capacity):
+    def __init__(self, id, owner):
         Truck.__init__(self, id, owner)
 
-        self.capacity = capacity
+        self.capacity = 5
 
 
     def getCapacity(self):
@@ -47,10 +47,10 @@ class FiftyBus(Bus):
 
 
 class SeventyBus(Bus):
-    def __init__(self, id, owner, capacity):
+    def __init__(self, id, owner):
         Truck.__init__(self, id, owner)
 
-        self.capacity = capacity
+        self.capacity = 10
 
 
     def getCapacity(self):
@@ -74,9 +74,9 @@ class DeliveryTruck(Truck):
         Truck.__init__(self, id, owner)
 
 class FiftyTruck(DeliveryTruck):
-    def __init__(self, id, owner, volume_capacity):
+    def __init__(self, id, owner):
         Truck.__init__(self, id, owner)
-        self.volume_capacity = volume_capacity
+        self.volume_capacity = 7
 
     def getCapacity(self):
         return self.volume_capacity
@@ -89,8 +89,9 @@ class FiftyTruck(DeliveryTruck):
 
 
 class SeventyTruck(DeliveryTruck):
-    def __init__(self, id, owner, volume_capacity):
+    def __init__(self, id, owner):
         Truck.__init__(self, id, owner)
+        self.volume_capacity = 14
 
     def getCapacity(self):
         return self.volume_capacity

@@ -17,8 +17,8 @@ districts = {"Lisboa": (0, 50), "Setubal": (0, 40), "Beja": (10, 30), "Evora": (
 def step(clients, companies):
 
 	client_offering = np.random.choice(clients)
-	
-	broadcastOffer(client_offering, 1)
+
+	auction.auction(companies, client_offering)
 
 def setupWorld(ncli, ntrucks, nbuses, ncompanies):
 	clients = []
@@ -46,5 +46,3 @@ if __name__ == "__main__":
 
 
 	setupWorld(4, 4, 4, 4)
-
-

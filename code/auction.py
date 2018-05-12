@@ -12,13 +12,13 @@ def auction(companies, auctioneer):
 	destination = np.random.choice(list(world_set.districts.keys()))
 	bids = []
 	for c in companies:
-		if (len(c.getTrucks())>0):
+		if (c.getNumberAvailableTrucks()>0):
 			bids += [(c.getUtility(distance(world_set.districts[c.getLocal()], world_set.districts[destination])), c)]
 
 	winnerBid = min(bids, key = lambda t: t[0])[0]
 	company = min(bids, key = lambda t: t[0])[1]
 
-	company.delivery(winnerBid)
+	company.delivery(winnerBid, distance(world_set.districts[company.getLocal()], world_set.districts[destination]))
 
 	return company, winnerBid
 

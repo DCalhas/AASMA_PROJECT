@@ -1,5 +1,6 @@
 import truck
 from random import randint
+import numpy as np
 
 class Company:
 
@@ -44,8 +45,45 @@ class Company:
         #put 0.2 after, if we organize the trucks with the products
         return distance * (1+self.risk) + 5
 
-    def delivery(self, bid):
+    def updateTrucksSteps(self):
+        trucks = self.getTrucks()
+        for t in trucks:
+            t.stepTransportation()
+
+    def getNumberAvailableTrucks(self):
+        s = 0
+        trucks = self.getTrucks()
+        for t in trucks:
+            if(t.getAvailability()):
+                s += 1
+        return s
+
+    def getAvailableTrucks(self):
+        trucksAvailable = []
+
+        trucks = self.getTrucks()
+
+        for t in trucks:
+            if(t.getAvailability()):
+                trucksAvailable += [t]
+        return trucksAvailable
+
+    def printAvailableTrucks(self):
+        s = 0
+        trucks = self.getTrucks()
+        for t in trucks:
+            if(t.getAvailability()):
+                s += 1
+        print("Company " + self.getId() + " has " + str(s) + " trucks available")
+
+
+
+    def delivery(self, bid, distance):
         self.updateProfit(bid)
+
+        #choose random available truck
+        t = np.random.choice(self.getAvailableTrucks())
+        t.startTransportation(distance)
 
     def buyTrucks(self, policy):
 

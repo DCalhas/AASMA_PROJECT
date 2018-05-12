@@ -8,6 +8,21 @@ class Truck:
         self.gas = 0
         self.available = True
         self.local = owner.getLocal()
+        self.time_to_available = 0
+
+    #returns if transport is available or not
+    def getAvailability(self):
+        return self.time_to_available == 0
+
+    #starts a transportation
+    def startTransportation(self, distance):
+        if(self.getAvailability()):
+            self.time_to_available = 2 * round(10 * (distance/110))
+
+    #decreases the time of a transportation
+    def stepTransportation(self):
+        if(not self.getAvailability()):
+            self.time_to_available -= 1
 
     def getID(self):
         return self.id

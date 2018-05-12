@@ -1,7 +1,9 @@
 import company
+import auction
 import truck
 import client
 import numpy as np
+import time
 
 
 volumeDeliveryTruck = [10, 15, 20, 25, 30]
@@ -18,7 +20,7 @@ def step(clients, companies):
 
 	client_offering = np.random.choice(clients)
 
-	auction.auction(companies, client_offering)
+	return auction.auction(companies, client_offering)
 
 def setupWorld(ncli, ntrucks, nbuses, ncompanies):
 	clients = []
@@ -31,18 +33,26 @@ def setupWorld(ncli, ntrucks, nbuses, ncompanies):
 
 
 	for i in range(ncompanies):
-		c = company.Company("COMP" + str(i), 50+i, (i,i))
+		c = company.Company("COMP" + str(i), 50+i, np.random.choice(list(districts.keys())), np.random.random())
 		while c.getProfit() > 0:
 			c.buyTrucks(np.random.choice(policy))
-		clients += [c]
+		companies += [c]
 
 		print(c.getTrucks())
 
-	print(clients[0].makeOffer(np.random.choice(list(districts.keys())), np.random.choice(list(districts.keys())), 10, 20))
+
+	#print(clients[0].makeOffer(np.random.choice(list(districts.keys())), np.random.choice(list(districts.keys())), 10, 20))
+	return clients, companies
 
 
 
 if __name__ == "__main__":
 
 
-	setupWorld(4, 4, 4, 4)
+	clients, companies = setupWorld(4, 4, 4, 4)
+
+	while(1):
+		print(step(clients, companies))
+		for i in companies:
+			print("i tem : " , i.getProfit())
+		time.sleep(1)

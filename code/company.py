@@ -3,11 +3,12 @@ from random import randint
 
 class Company:
 
-    def __init__(self, id, budget, local):
+    def __init__(self, id, budget, local, risk):
         self.id = id
         self.trucks = []
         self.profit = budget
         self.local = local
+        self.risk = risk
 
     def getId(self):
         return self.id
@@ -24,8 +25,8 @@ class Company:
     def getProfit(self):
         return self.profit
 
-    def setProfit(self, budget):
-        self.profit = budget
+    def updateProfit(self, budget):
+        self.profit += budget
 
     def getLocal(self):
         return self.local
@@ -41,7 +42,10 @@ class Company:
 
     def getUtility(self, distance):
         #put 0.2 after, if we organize the trucks with the products
-        return distance * 1.2
+        return distance * (1+self.risk) + 5
+
+    def delivery(self, bid):
+        self.updateProfit(bid)
 
     def buyTrucks(self, policy):
 

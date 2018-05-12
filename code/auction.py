@@ -13,10 +13,12 @@ def auction(companies, auctioneer):
 	bids = []
 	for c in companies:
 		bids += [c.getUtility(distance(world_set.districts[c.getLocal()], world_set.districts[destination]))]
-		#print(auctioneer.getUtility())
-	winner = np.min(bids)
-	
-	return companies[bids.index(winner)], np.min(bids)
+	winnerBid = np.min(bids)
+
+	company = companies[bids.index(winnerBid)]
+	company.delivery(winnerBid)
+
+	return company, winnerBid
 
 
 if __name__ == "__main__":
@@ -32,5 +34,5 @@ if __name__ == "__main__":
 	companies += [company.Company("C3", 0, np.random.choice(list(world_set.districts.keys())))]
 	companies += [company.Company("C4", 0, np.random.choice(list(world_set.districts.keys())))]
 
-	
+
 	print(auction(companies, np.random.choice(clients)))

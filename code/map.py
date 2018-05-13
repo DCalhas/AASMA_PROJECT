@@ -65,7 +65,7 @@ def animate(i):
     global actual, finish, t
     p += [patches.RegularPolygon(actual, 4, radius=0.01, color='r', transform=fig.transFigure, figure=fig)]
     actual = updatePosition(actual, finish)
-    t += 0.1
+    t += 0.05
     fig.patches.extend(p)
     """fig.patches.extend([plt.Rectangle((np.random.random(),np.random.random()),0.01,0.01,
                                   fill=True, color='grey', alpha=0.5, zorder=1000,
@@ -78,7 +78,7 @@ def animate(i):
     return fig
 
 
-ani = animation.FuncAnimation(fig, animate, interval=500)
+ani = animation.FuncAnimation(fig, animate, interval=40)
 
 
 plt.show()

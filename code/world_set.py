@@ -10,10 +10,16 @@ volumeDeliveryTruck = [10, 15, 20, 25, 30]
 volumeBus = [30, 40, 50, 60, 70]
 policy = [1, 2, 3, 4]
 
-districts = {"Lisboa": (0, 50), "Setubal": (0, 40), "Beja": (10, 30), "Evora": (10, 20), "Faro": (10, 0), "Portalegre": (20, 50), "Castelo Branco": (20, 60),
+districts = {"Lisboa": (0, 50), "Setubal": (0, 40), "Beja": (10, 20), "Evora": (10, 30), "Faro": (10, 0), "Portalegre": (20, 50), "Castelo Branco": (20, 60),
 			"Santarem": (10, 60), "Coimbra": (0, 70), "Leiria": (0, 60), "Aveiro": (0, 80), "Guarda": (20, 70), "Porto": (0, 90), "Viana do Castelo": (0, 100),
 			"Vila Real": (10, 100), "Viseu": (10, 70), "Braga": (10, 90), "Braganca": (20, 100)}
 
+districts_connections = [("Lisboa", "Setubal"), ("Lisboa", "Santarem"), ("Lisboa", "Leiria"), ("Santarem", "Portalegre"), ("Portalegre", "Evora"),
+						("Beja", "Evora"), ("Beja", "Faro"), ("Portalegre", "Castelo Branco"), ("Castelo Branco", "Guarda"), ("Guarda", "Viseu"),
+						("Porto", "Braga"), ("Porto", "Coimbra"), ("Coimbra", "Leiria"), ("Coimbra", "Viseu"), ("Braga", "Viana do Castelo"),
+						("Viana do Castelo", "Braganca"), ("Aveiro", "Leiria"), ("Aveiro", "Coimbra"), ("Vila Real", "Viana do Castelo"), ("Viana do Castelo", "Braganca"),
+						("Braganca", "Guarda"), ("Santarem", "Viseu"), ("Braga", "Viseu"), ("Vila Real", "Braga"), ("Porto", "Viana do Castelo"),
+						("Setubal", "Evora"), ("Santarem", "Evora")]
 
 def step(clients, companies):
 

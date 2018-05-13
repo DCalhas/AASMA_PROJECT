@@ -7,6 +7,7 @@ class Truck:
         self.id = owner.getId() + str(id)
         self.gas = 0
         self.available = True
+        self.home = owner.getLocal()
         self.local = owner.getLocal()
         self.time_to_available = 0
 

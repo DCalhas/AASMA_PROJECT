@@ -1,44 +1,117 @@
-import numpy as np
+import random
+import pylab
+import math
+import time
+from matplotlib.pyplot import pause
+from matplotlib import patches
+from matplotlib.collections import PatchCollection
 import matplotlib.pyplot as plt
+import networkx as nx
+import numpy as np
 import matplotlib.animation as animation
+from world_set import districts, districts_connections
 
 
-def data_gen(t=0):
-    cnt = 0
-    while cnt < 1000:
-        cnt += 1
-        t += 0.1
-        yield t, np.sin(2*np.pi*t) * np.exp(-t/10.)
+for k in districts:
+    districts[k] = ((districts[k][0]+10)/40, (districts[k][1]+10)/120)
+    print(k, districts[k])
 
 
-def init():
-    ax.set_ylim(-1.1, 1.1)
-    ax.set_xlim(0, 10)
-    del xdata[:]
-    del ydata[:]
-    line.set_data(xdata, ydata)
-    return line,
+fig = plt.figure()
 
-fig, ax = plt.subplots()
-line, = ax.plot([], [], lw=2)
-ax.grid()
-xdata, ydata = [], []
+fig.patches.extend([plt.Rectangle((0,0.5),0.1,0.1,
+                                  fill=True, color='grey', alpha=0.5, zorder=1000,
+                                  transform=fig.transFigure, figure=fig)])
 
 
-def run(data):
-    # update the data
-    t, y = data
-    xdata.append(t)
-    ydata.append(y)
-    xmin, xmax = ax.get_xlim()
+fig.patches.extend([plt.Rectangle((0.5,0),0.1,0.1,
+                                  fill=True, color='grey', alpha=0.5, zorder=1000,
+                                  transform=fig.transFigure, figure=fig)])
 
-    if t >= xmax:
-        ax.set_xlim(xmin, 2*xmax)
-        ax.figure.canvas.draw()
-    line.set_data(xdata, ydata)
 
-    return line,
 
-ani = animation.FuncAnimation(fig, run, data_gen, blit=False, interval=10,
-                              repeat=False, init_func=init)
+#####################################################################
+actual = districts["Setubal"]
+finish = districts["Evora"]
+t = 0
+
+def updatePosition(p, dest):
+    global actual, finish, districts, t
+    if(actual[0] == finish[0] and actual[1] == finish[1]):
+        actual = districts["Setubal"]
+        finish = districts["Evora"]
+        t = 0
+        return actual
+    p = (p[0] + t*(dest[0] - p[0]), p[1] + t*(dest[1] - p[1]))
+    return p
+######################################################################
+
+
+
+
+
+def animate(i):
+    fig.clf()
+    p = []
+    for k in districts:
+        p += [patches.Circle((districts[k][0],districts[k][1]), radius=0.01, transform=fig.transFigure, figure=fig)]
+
+    for d in districts_connections:
+        p += [patches.ConnectionPatch(xyA=districts[d[0]], 
+                                    xyB=districts[d[1]], 
+                                    coordsA='figure fraction', coordsB='figure fraction', arrowstyle="-", transform=fig.transFigure, figure=fig)]
+
+    #moving between Setubal and Evora
+    global actual, finish, t
+    p += [patches.RegularPolygon(actual, 4, radius=0.01, color='r', transform=fig.transFigure, figure=fig)]
+    actual = updatePosition(actual, finish)
+    t += 0.1
+    fig.patches.extend(p)
+    """fig.patches.extend([plt.Rectangle((np.random.random(),np.random.random()),0.01,0.01,
+                                  fill=True, color='grey', alpha=0.5, zorder=1000,
+                                  transform=fig.transFigure, figure=fig), 
+                        patches.RegularPolygon((0.5,0.5), 4, radius=0.01, color='r', transform=fig.transFigure, figure=fig),
+                        patches.Circle((0.1,0.5), radius=0.01, transform=fig.transFigure, figure=fig),
+                        patches.Circle((0.9,0.5), radius=0.01, transform=fig.transFigure, figure=fig),
+                        patches.ConnectionPatch(xyA=(0.1, 0.5), xyB=(0.9, 0.5), coordsA='figure fraction', coordsB='figure fraction', arrowstyle="-", transform=fig.transFigure, figure=fig)])
+"""
+    return fig
+
+
+ani = animation.FuncAnimation(fig, animate, interval=500)
+
+
 plt.show()
+"""
+pylab.ion()
+
+graph = nx.Graph()
+
+graph.add_node(0, Position=(random.randrange(0, 100), random.randrange(0, 100)))
+graph.add_node(1, Position=(random.randrange(0, 100), random.randrange(0, 100)))
+graph.add_node(2, Position=(random.randrange(0, 100), random.randrange(0, 100)))
+graph.add_node(3, Position=(50, 50))
+
+graph.add_node(4, Position=(50, 50))
+
+
+graph.add_edge(0, 1)
+graph.add_edge(0, 2)
+graph.add_edge(1, 3)
+graph.add_edge(2, 3)
+
+def get_fig():
+    global node_number
+    graph.remove_node(4)
+    graph.node[4]['Position'] = (random.randrange(0, 100), random.randrange(0, 100))
+    nx.draw(graph, pos=nx.get_node_attributes(graph,'Position'))
+
+num_plots = 50;
+pylab.show()
+
+for i in range(num_plots):
+
+    get_fig()
+    pylab.draw()
+    pause(0.3)
+"""

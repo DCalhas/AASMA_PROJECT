@@ -24,7 +24,7 @@ districts_connections = [("Lisboa", "Setubal"), ("Lisboa", "Santarem"), ("Lisboa
 def step(clients, companies):
 
 	client_offering = np.random.choice(clients)
-
+	print(client_offering)
 
 	for c in companies:
 		c.updateTrucksSteps()
@@ -65,5 +65,5 @@ if __name__ == "__main__":
 	while(1):
 		print(step(clients, companies))
 		for i in companies:
-			print("i tem : " , i.getProfit())
+			print(i, " tem : " , i.getProfit())
 		time.sleep(1)

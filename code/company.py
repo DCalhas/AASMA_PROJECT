@@ -99,3 +99,6 @@ class Company:
 
         self.profit -= x.getPrice()
         self.addTruck(x)
+
+    def __repr__(self):
+        return str("company com id: " + self.id)

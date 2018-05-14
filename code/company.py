@@ -88,6 +88,7 @@ class Company:
                 trucksAvailable += [t]
         return trucksAvailable
 
+<<<<<<< HEAD
 
     def getAvailableBusForOffer(self):
 
@@ -106,6 +107,18 @@ class Company:
             if(type(t) is truck.FiftyTruck or type(t) is truck.SeventyTruck):
                 return True
         return False
+=======
+    def getTrucksOnTheMove(self):
+        trucks = self.getTrucks()
+        available = self.getAvailableTrucks()
+
+        move = []
+        for t in trucks:
+            if(not t in available):
+                move += [t]
+
+        return move
+>>>>>>> 915be4830ac283ac6fe7fd557a3353a4a9338b17
 
     def printAvailableTrucks(self):
         s = 0
@@ -133,7 +146,7 @@ class Company:
             print("type error: " + str(e))
 
     def updateTrucksSteps(self):
-        trucks = self.getTrucks()
+        trucks = self.getTrucksOnTheMove()
         for t in trucks:
             t.stepTransportation()
 

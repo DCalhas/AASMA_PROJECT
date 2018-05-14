@@ -11,22 +11,13 @@ import numpy as np
 import matplotlib.animation as animation
 from world_set import districts, districts_connections
 
-
+#normalize the coordinates to be within the range of [0, 1]
 for k in districts:
     districts[k] = ((districts[k][0]+10)/40, (districts[k][1]+10)/120)
     print(k, districts[k])
 
 
 fig = plt.figure()
-
-fig.patches.extend([plt.Rectangle((0,0.5),0.1,0.1,
-                                  fill=True, color='grey', alpha=0.5, zorder=1000,
-                                  transform=fig.transFigure, figure=fig)])
-
-
-fig.patches.extend([plt.Rectangle((0.5,0),0.1,0.1,
-                                  fill=True, color='grey', alpha=0.5, zorder=1000,
-                                  transform=fig.transFigure, figure=fig)])
 
 
 
@@ -49,32 +40,32 @@ def updatePosition(p, dest):
 
 
 
-
+#this function is the animation, is called with an interval of 40 ms 
 def animate(i):
+    #clear figure at each iteration
     fig.clf()
     p = []
     for k in districts:
+        #https://matplotlib.org/api/_as_gen/matplotlib.patches.Circle.html#matplotlib.patches.Circle package explanation
+        #these are supposed to be the location (each district)
         p += [patches.Circle((districts[k][0],districts[k][1]), radius=0.01, transform=fig.transFigure, figure=fig)]
 
     for d in districts_connections:
+        #https://matplotlib.org/api/_as_gen/matplotlib.patches.ConnectionPatch.html#matplotlib.patches.ConnectionPatch package explanation
         p += [patches.ConnectionPatch(xyA=districts[d[0]], 
                                     xyB=districts[d[1]], 
                                     coordsA='figure fraction', coordsB='figure fraction', arrowstyle="-", transform=fig.transFigure, figure=fig)]
 
-    #moving between Setubal and Evora
+    #moving between Setubal and Evora ####### this is just a demo (a point moving) TODO: implement the movement of the trucks #######
     global actual, finish, t
     p += [patches.RegularPolygon(actual, 4, radius=0.01, color='r', transform=fig.transFigure, figure=fig)]
     actual = updatePosition(actual, finish)
     t += 0.05
+
+
+    #Add the objects updated to the figure
     fig.patches.extend(p)
-    """fig.patches.extend([plt.Rectangle((np.random.random(),np.random.random()),0.01,0.01,
-                                  fill=True, color='grey', alpha=0.5, zorder=1000,
-                                  transform=fig.transFigure, figure=fig), 
-                        patches.RegularPolygon((0.5,0.5), 4, radius=0.01, color='r', transform=fig.transFigure, figure=fig),
-                        patches.Circle((0.1,0.5), radius=0.01, transform=fig.transFigure, figure=fig),
-                        patches.Circle((0.9,0.5), radius=0.01, transform=fig.transFigure, figure=fig),
-                        patches.ConnectionPatch(xyA=(0.1, 0.5), xyB=(0.9, 0.5), coordsA='figure fraction', coordsB='figure fraction', arrowstyle="-", transform=fig.transFigure, figure=fig)])
-"""
+
     return fig
 
 
@@ -82,36 +73,3 @@ ani = animation.FuncAnimation(fig, animate, interval=40)
 
 
 plt.show()
-"""
-pylab.ion()
-
-graph = nx.Graph()
-
-graph.add_node(0, Position=(random.randrange(0, 100), random.randrange(0, 100)))
-graph.add_node(1, Position=(random.randrange(0, 100), random.randrange(0, 100)))
-graph.add_node(2, Position=(random.randrange(0, 100), random.randrange(0, 100)))
-graph.add_node(3, Position=(50, 50))
-
-graph.add_node(4, Position=(50, 50))
-
-
-graph.add_edge(0, 1)
-graph.add_edge(0, 2)
-graph.add_edge(1, 3)
-graph.add_edge(2, 3)
-
-def get_fig():
-    global node_number
-    graph.remove_node(4)
-    graph.node[4]['Position'] = (random.randrange(0, 100), random.randrange(0, 100))
-    nx.draw(graph, pos=nx.get_node_attributes(graph,'Position'))
-
-num_plots = 50;
-pylab.show()
-
-for i in range(num_plots):
-
-    get_fig()
-    pylab.draw()
-    pause(0.3)
-"""

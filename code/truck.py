@@ -1,4 +1,5 @@
 import company
+import world_set
 from random import randint
 
 class Truck:
@@ -9,21 +10,42 @@ class Truck:
         self.available = True
         self.home = owner.getLocal()
         self.local = owner.getLocal()
-        self.time_to_available = 0
+        self.current_location = world_set.districts[owner.getLocal()]
+
+        self.time_transportation = 0
+        #destination is undefined in the beginning 
+        self.destination = (-1, -1)
 
     #returns if transport is available or not
     def getAvailability(self):
-        return self.time_to_available == 0
+        return self.available
 
     #starts a transportation
-    def startTransportation(self, distance):
-        if(self.getAvailability()):
-            self.time_to_available = 2 * round(10 * (distance/110))
+    def startTransportation(self, destination):
+        self.available = False
+        self.time_transportation = 0.9
+
+        self.destination = destination
+
+        self.current_location = (self.current_location[0] + self.time_transportation*(destination[0] - self.current_location[0]), 
+                                self.current_location[1] + self.time_transportation*(destination[1] - self.current_location[1]))
 
     #decreases the time of a transportation
     def stepTransportation(self):
-        if(not self.getAvailability()):
-            self.time_to_available -= 1
+        if(self.time_transportation == 1):
+            self.time_transportation = 0.8
+            self.destination = world_set.districts[self.home]
+
+        self.time_transportation += 0.1
+        #formula that was in the map class
+        self.current_location = (self.current_location[0] + self.time_transportation*(self.destination[0] - self.current_location[0]), 
+                                self.current_location[1] + self.time_transportation*(self.destination[1] - self.current_location[1]))
+
+        if(self.current_location == world_set.districts[self.home]):
+            self.available = True
+            return True
+
+        return False
 
     def getID(self):
         return self.id
@@ -33,6 +55,9 @@ class Truck:
 
     def getLocal(self):
         return self.local
+
+    def getCoordinates(self):
+        return self.current_location
 
     def setLocal(self, local):
         self.local = local

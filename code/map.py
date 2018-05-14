@@ -58,6 +58,7 @@ def animate(i):
 
     #moving between Setubal and Evora ####### this is just a demo (a point moving) TODO: implement the movement of the trucks #######
     global actual, finish, t
+    #https://matplotlib.org/api/_as_gen/matplotlib.patches.RegularPolygon.html#matplotlib.patches.RegularPolygon package explanation
     p += [patches.RegularPolygon(actual, 4, radius=0.01, color='r', transform=fig.transFigure, figure=fig)]
     actual = updatePosition(actual, finish)
     t += 0.05

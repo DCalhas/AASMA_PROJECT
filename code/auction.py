@@ -19,10 +19,13 @@ def auction(companies, auctioneer): #auctioneer nao esta a ser utilizado
 		if (c.getNumberAvailableTrucks()>0):
 			bids += [(c.getUtility(distance(world_set.districts[c.getLocal()], world_set.districts[destination])), c)]
 
+	if(len(bids) == 0):
+		return None, None
+		
 	winnerBid = min(bids, key = lambda t: t[0])[0]
 	company = min(bids, key = lambda t: t[0])[1]
 
-	company.delivery(winnerBid, distance(world_set.districts[company.getLocal()], world_set.districts[destination]))
+	company.delivery(winnerBid, world_set.districts[destination])
 
 	return company, winnerBid
 

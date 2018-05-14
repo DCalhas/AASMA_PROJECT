@@ -1,6 +1,8 @@
 import truck
+import auction
 from random import randint
 import numpy as np
+import math
 
 class Company:
 
@@ -38,8 +40,21 @@ class Company:
     def evaluateOffer(self, offer):
         start = offer[0]
         finish = offer[1]
-        amount = offer[2]
-        money = offer[3]
+        goods = offer[2]
+        base = offer[3]
+        if(goods[0] > 0 and not(self.getAvailableBusForOffer())):
+            return False
+        if(goods[1] > 0 and not(self.getAvailableTrucksForOffer())):
+            return False
+
+        dist = auction.distance(start, finish)
+        priceGood = np.random.uniform(0.4, 0.9)
+        pricePeople =  np.random.uniform(0.9, 1.4)
+
+        return ((pricePeople*goods[0] + priceGood*goods[1]) * (dist)) * (1+self.risk)
+
+
+
 
     def getUtility(self, distance):
         #put 0.2 after, if we organize the trucks with the products
@@ -53,15 +68,44 @@ class Company:
                 s += 1
         return s
 
+    def getAvailableBuses(self):
+        busesAvailable = []
+
+        buses = self.getTrucks()
+
+        for b in buses:
+            if(b.getAvailability() and (type(b) is truck.FiftyBus or type(b) is truck.SeventyBus)):
+                busesAvailable += [b]
+        return busesAvailable
+
     def getAvailableTrucks(self):
         trucksAvailable = []
 
         trucks = self.getTrucks()
 
         for t in trucks:
-            if(t.getAvailability()):
+            if(t.getAvailability() and (type(t) is truck.FiftyTruck or type(t) is truck.SeventyTruck)):
                 trucksAvailable += [t]
         return trucksAvailable
+
+
+    def getAvailableBusForOffer(self):
+
+        buses = self.getTrucks()
+
+        for t in buses:
+            if(type(t) is truck.FiftyBus or type(t) is truck.SeventyBus):
+                return True
+        return False
+
+    def getAvailableTrucksForOffer(self):
+
+        trucks = self.getTrucks()
+
+        for t in trucks:
+            if(type(t) is truck.FiftyTruck or type(t) is truck.SeventyTruck):
+                return True
+        return False
 
     def printAvailableTrucks(self):
         s = 0
@@ -73,12 +117,20 @@ class Company:
 
 
 
-    def delivery(self, bid, destination):
+    def delivery(self, bid, destination, goods):
         self.updateProfit(bid)
 
-        #choose random available truck
-        t = np.random.choice(self.getAvailableTrucks())
-        t.startTransportation(destination)
+        #melhorar isto
+        try:
+            if(goods[0] > 0):
+                print(self.getAvailableBuses())
+                b = np.random.choice(self.getAvailableBuses())
+                b.startTransportation(destination)
+            if(goods[1] > 0):
+                t = np.random.choice(self.getAvailableTrucks())
+                t.startTransportation(destination)
+        except Exception as e:
+            print("type error: " + str(e))
 
     def updateTrucksSteps(self):
         trucks = self.getTrucks()

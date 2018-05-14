@@ -45,11 +45,6 @@ class Company:
         #put 0.2 after, if we organize the trucks with the products
         return distance * (1+self.risk) + 5
 
-    def updateTrucksSteps(self):
-        trucks = self.getTrucks()
-        for t in trucks:
-            t.stepTransportation()
-
     def getNumberAvailableTrucks(self):
         s = 0
         trucks = self.getTrucks()
@@ -78,12 +73,18 @@ class Company:
 
 
 
-    def delivery(self, bid, distance):
+    def delivery(self, bid, destination):
         self.updateProfit(bid)
 
         #choose random available truck
         t = np.random.choice(self.getAvailableTrucks())
-        t.startTransportation(distance)
+        t.startTransportation(destination)
+
+    def updateTrucksSteps(self):
+        trucks = self.getTrucks()
+        for t in trucks:
+            t.stepTransportation()
+
 
     def buyTrucks(self, policy):
 

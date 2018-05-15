@@ -42,10 +42,11 @@ class Company:
         finish = offer[1]
         goods = offer[2]
         base = offer[3]
-        if(goods[0] > 0 and not(self.getAvailableBusForOffer())):
+        if(goods[0] > 0 and len(self.getAvailableBuses()) == 0):
             return False
-        if(goods[1] > 0 and not(self.getAvailableTrucksForOffer())):
+        if(goods[1] > 0 and len(self.getAvailableTrucks()) == 0):
             return False
+
 
         dist = auction.distance(start, finish)
         priceGood = np.random.uniform(0.4, 0.9)
@@ -90,7 +91,7 @@ class Company:
 
 
 
-    def getAvailableBusForOffer(self):
+    '''def getAvailableBusForOffer(self):
 
         buses = self.getTrucks()
 
@@ -106,7 +107,7 @@ class Company:
         for t in trucks:
             if(type(t) is truck.FiftyTruck or type(t) is truck.SeventyTruck):
                 return True
-        return False
+        return False'''
 
     def getTrucksOnTheMove(self):
         trucks = self.getTrucks()
@@ -133,6 +134,8 @@ class Company:
     def delivery(self, bid, destination, goods):
         self.updateProfit(bid)
 
+        print(self.getAvailableBuses())
+        print(goods)
         #melhorar isto
         try:
             if(goods[0] > 0):

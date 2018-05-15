@@ -24,7 +24,7 @@ districts_connections = [("Lisboa", "Setubal"), ("Lisboa", "Santarem"), ("Lisboa
 def step(clients, companies):
 
 	client_offering = np.random.choice(clients)
-	print(client_offering)
+	#print(client_offering)
 
 	for c in companies:
 		c.updateTrucksSteps()
@@ -44,7 +44,7 @@ def setupWorld(ncli, ntrucks, nbuses, ncompanies):
 
 
 	for i in range(ncompanies):
-		c = company.Company("COMP" + str(i), 50+i, np.random.choice(list(districts.keys())), np.random.random())
+		c = company.Company("COMP" + str(i), 500+i, np.random.choice(list(districts.keys())), np.random.random())
 		while c.getProfit() > 0:
 			c.buyTrucks(np.random.choice(policy))
 		companies += [c]

@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
 import matplotlib.animation as animation
+import world_set
 from world_set import districts, districts_connections
 
 #normalize the coordinates to be within the range of [0, 1]
@@ -22,6 +23,7 @@ fig = plt.figure()
 
 
 #####################################################################
+"""
 actual = districts["Setubal"]
 finish = districts["Evora"]
 t = 0
@@ -35,13 +37,14 @@ def updatePosition(p, dest):
         return actual
     p = (p[0] + t*(dest[0] - p[0]), p[1] + t*(dest[1] - p[1]))
     return p
+"""
 ######################################################################
 
-
-
+clients, companies = world_set.setupWorld(4, 4, 4, 4)
 
 #this function is the animation, is called with an interval of 40 ms 
 def animate(i):
+    global clients, companies
     #clear figure at each iteration
     fig.clf()
     p = []
@@ -57,12 +60,14 @@ def animate(i):
                                     coordsA='figure fraction', coordsB='figure fraction', arrowstyle="-", transform=fig.transFigure, figure=fig)]
 
     #moving between Setubal and Evora ####### this is just a demo (a point moving) TODO: implement the movement of the trucks #######
-    global actual, finish, t
-    #https://matplotlib.org/api/_as_gen/matplotlib.patches.RegularPolygon.html#matplotlib.patches.RegularPolygon package explanation
-    p += [patches.RegularPolygon(actual, 4, radius=0.01, color='r', transform=fig.transFigure, figure=fig)]
-    actual = updatePosition(actual, finish)
-    t += 0.05
+    print(world_set.step(clients, companies))
 
+    #https://matplotlib.org/api/_as_gen/matplotlib.patches.RegularPolygon.html#matplotlib.patches.RegularPolygon package explanation
+    for c in companies:
+        trucks = c.getTrucksOnTheMove()
+        for t in trucks:
+            #print("Truck ", t.getID(), " is at ", t.getCoordinates(), " with destination ", t.getDestination())
+            p += [patches.RegularPolygon(t.getCoordinates(), 4, radius=0.01, color='r', transform=fig.transFigure, figure=fig)]
 
     #Add the objects updated to the figure
     fig.patches.extend(p)
@@ -70,7 +75,7 @@ def animate(i):
     return fig
 
 
-ani = animation.FuncAnimation(fig, animate, interval=40)
+ani = animation.FuncAnimation(fig, animate, interval=100)
 
 
 plt.show()

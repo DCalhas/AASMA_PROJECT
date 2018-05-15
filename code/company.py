@@ -105,6 +105,16 @@ class Company:
                 s += 1
         return s
 
+    def getTrucksOnTheMove(self):
+        trucks = self.getTrucks()
+        available = self.getAvailableTrucks()
+
+        move = []
+        for t in trucks:
+            if(not t in available):
+                move += [t]
+
+        return move
 
     def printAvailableTrucks(self):
         s = 0
@@ -139,7 +149,7 @@ class Company:
     
 
     def updateTrucksSteps(self):
-        trucks = self.getTrucks()
+        trucks = self.getTrucksOnTheMove()
         for t in trucks:
             t.stepTransportation()
 

@@ -15,6 +15,7 @@ class Truck:
         self.time_transportation = 0
         #destination is undefined in the beginning 
         self.destination = (-1, -1)
+        self.finalDestination = False
 
     #returns if transport is available or not
     def getAvailability(self):
@@ -23,27 +24,30 @@ class Truck:
     #starts a transportation
     def startTransportation(self, destination):
         self.available = False
-        self.time_transportation = 0.9
+        self.time_transportation = 0.05
 
         self.destination = destination
 
-        self.current_location = (self.current_location[0] + self.time_transportation*(destination[0] - self.current_location[0]), 
-                                self.current_location[1] + self.time_transportation*(destination[1] - self.current_location[1]))
-
-    #decreases the time of a transportation
-    def stepTransportation(self):
-        if(self.time_transportation == 1):
-            self.time_transportation = 0.8
-            self.destination = world_set.districts[self.home]
-
-        self.time_transportation += 0.1
-        #formula that was in the map class
         self.current_location = (self.current_location[0] + self.time_transportation*(self.destination[0] - self.current_location[0]), 
                                 self.current_location[1] + self.time_transportation*(self.destination[1] - self.current_location[1]))
 
-        if(self.current_location == world_set.districts[self.home]):
+    #decreases the time of a transportation
+    def stepTransportation(self):
+        #condition to see if it is back home
+        if(self.time_transportation >= 1 and self.finalDestination):
             self.available = True
             return True
+
+            
+        if(self.time_transportation >= 1):
+            self.time_transportation = 0.05
+            self.destination = world_set.districts[self.getLocal()]
+            self.finalDestination = True
+
+        self.time_transportation += 0.05
+        #formula that was in the map class
+        self.current_location = (self.current_location[0] + self.time_transportation*(self.destination[0] - self.current_location[0]), 
+                                self.current_location[1] + self.time_transportation*(self.destination[1] - self.current_location[1]))
 
         return False
 
@@ -59,6 +63,8 @@ class Truck:
     def getCoordinates(self):
         return self.current_location
 
+    def getDestination(self):
+        return self.destination
     def setLocal(self, local):
         self.local = local
 

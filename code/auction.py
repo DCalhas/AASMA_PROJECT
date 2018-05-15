@@ -9,22 +9,28 @@ def distance(x, y):
 
 
 def auction(companies, auctioneer):
-	destination = np.random.choice(list(world_set.districts.keys()))
+
+	start = world_set.districts[np.random.choice(list(world_set.districts.keys()))]
+	finish = world_set.districts[np.random.choice(list(world_set.districts.keys()))]
+	while (finish == start):
+		finish = world_set.districts[np.random.choice(list(world_set.districts.keys()))]
+	goods = (int(np.random.uniform(0, 10)), int(np.random.uniform(0, 10))) #(pessoa, bem)
+	baseAuction = auctioneer.getUtility(goods, start, finish)
+	details = auctioneer.makeOffer(start, finish, goods, baseAuction)
 	bids = []
 	for c in companies:
-		if (c.getNumberAvailableTrucks()>0):
-			bids += [(c.getUtility(distance(world_set.districts[c.getLocal()], world_set.districts[destination])), c)]
+		offer = c.evaluateOffer(details)
+		if(offer):
+			bids += [(offer, c)]
 
 	if(len(bids) == 0):
 		return None, None
-		
+
 	winnerBid = min(bids, key = lambda t: t[0])[0]
 	company = min(bids, key = lambda t: t[0])[1]
-
-	company.delivery(winnerBid, world_set.districts[destination])
+	company.delivery(winnerBid, finish, goods)
 
 	return company, winnerBid
-
 
 if __name__ == "__main__":
 	clients = []

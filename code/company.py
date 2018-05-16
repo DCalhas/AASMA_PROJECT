@@ -108,11 +108,10 @@ class Company:
 
     def getTrucksOnTheMove(self):
         trucks = self.getTrucks()
-        available = [self.getAvailableTrucks()] + [self.getAvailableBuses()]
 
         move = []
         for t in trucks:
-            if(not t in available):
+            if(not t.getAvailability()):
                 move += [t]
 
         return move

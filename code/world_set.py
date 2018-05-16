@@ -21,19 +21,20 @@ districts_connections = [("Lisboa", "Setubal"), ("Lisboa", "Santarem"), ("Lisboa
 						("Braganca", "Guarda"), ("Santarem", "Viseu"), ("Braga", "Viseu"), ("Vila Real", "Braga"), ("Porto", "Viana do Castelo"),
 						("Setubal", "Evora"), ("Santarem", "Evora")]
 
-def step(clients, companies):
+def step(clients, companies, verbose=True):
 
 	client_offering = np.random.choice(clients)
 
 
 	for c in companies:
 		c.updateTrucksSteps()
-		c.printAvailableTrucks()
+		if(verbose):
+			c.printAvailableTrucks()
 
 
 	return auction.auction(companies, client_offering)
 
-def setupWorld(ncli, ntrucks, nbuses, ncompanies):
+def setupWorld(ncli, ntrucks, nbuses, ncompanies, verbose=True):
 	clients = []
 	companies = []
 
@@ -44,12 +45,13 @@ def setupWorld(ncli, ntrucks, nbuses, ncompanies):
 
 
 	for i in range(ncompanies):
-		c = company.Company("COMP" + str(i), 50+i, np.random.choice(list(districts.keys())), np.random.random())
+		c = company.Company("COMP" + str(i), 50, np.random.choice(list(districts.keys())), np.random.random())
 		while c.getProfit() > 0:
 			c.buyTrucks(np.random.choice(policy))
 		companies += [c]
 
-		print(c.getTrucks())
+		if(verbose):
+			print(c.getTrucks())
 
 
 	#print(clients[0].makeOffer(np.random.choice(list(districts.keys())), np.random.choice(list(districts.keys())), 10, 20))
@@ -66,4 +68,4 @@ if __name__ == "__main__":
 		print(step(clients, companies))
 		for i in companies:
 			print("i tem : " , i.getProfit())
-		time.sleep(5)
+		time.sleep(0.5)

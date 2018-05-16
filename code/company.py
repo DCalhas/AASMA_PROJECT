@@ -1,6 +1,8 @@
 import truck
 from random import randint
 import numpy as np
+import math
+import auction
 
 class Company:
 
@@ -38,12 +40,63 @@ class Company:
     def evaluateOffer(self, offer):
         start = offer[0]
         finish = offer[1]
-        amount = offer[2]
-        money = offer[3]
+        goods = offer[2]
+        base = offer[3]
+        if(goods[0] > 0 and len(self.getAvailableBuses())==0):
+            return False
+        if(goods[1] > 0 and len(self.getAvailableTrucks())==0):
+            return False
+        dist = auction.distance(start, finish)
+        priceGood = np.random.uniform(0.4, 0.9)
+        pricePeople =  np.random.uniform(0.9, 1.4)
+
+        return ((pricePeople*goods[0] + priceGood*goods[1]) * (dist)) * (1+self.risk)
 
     def getUtility(self, distance):
         #put 0.2 after, if we organize the trucks with the products
         return distance * (1+self.risk) + 5
+
+    def getAvailableBuses(self):
+        busesAvailable = []
+
+        buses = self.getTrucks()
+
+        for b in buses:
+            if(b.getAvailability() and (type(b) is truck.FiftyBus or type(b) is truck.SeventyBus)):
+                busesAvailable += [b]
+
+        return busesAvailable
+
+    def getAvailableTrucks(self):
+        trucksAvailable = []
+
+        trucks = self.getTrucks()
+
+        for t in trucks:
+            if(t.getAvailability() and (type(t) is truck.FiftyTruck or type(t) is truck.SeventyTruck)):
+                trucksAvailable += [t]
+        return trucksAvailable
+
+    #is this supposed to return a list or a boolean??
+    def getAvailableBusForOffer(self):
+
+        buses = self.getTrucks()
+
+        for t in buses:
+            if(type(t) is truck.FiftyBus or type(t) is truck.SeventyBus):
+                return True
+        return False
+
+    #is this supposed to return a list or a boolean??
+    def getAvailableTrucksForOffer(self):
+
+        trucks = self.getTrucks()
+
+        for t in trucks:
+            print(type(t))
+            if(type(t) is truck.FiftyTruck or type(t) is truck.SeventyTruck):
+                return True
+        return False
 
     def getNumberAvailableTrucks(self):
         s = 0
@@ -53,19 +106,9 @@ class Company:
                 s += 1
         return s
 
-    def getAvailableTrucks(self):
-        trucksAvailable = []
-
-        trucks = self.getTrucks()
-
-        for t in trucks:
-            if(t.getAvailability()):
-                trucksAvailable += [t]
-        return trucksAvailable
-
     def getTrucksOnTheMove(self):
         trucks = self.getTrucks()
-        available = self.getAvailableTrucks()
+        available = [self.getAvailableTrucks()] + [self.getAvailableBuses()]
 
         move = []
         for t in trucks:
@@ -90,6 +133,21 @@ class Company:
         #choose random available truck
         t = np.random.choice(self.getAvailableTrucks())
         t.startTransportation(destination)
+
+    def delivery(self, bid, destination, goods):
+        self.updateProfit(bid)
+
+
+        buses = self.getAvailableBuses()
+        if(goods[0] > 0 and len(buses)):
+            b = np.random.choice(buses)
+            b.startTransportation(destination)
+
+        trucks = self.getAvailableTrucks()
+        if(goods[1] > 0 and len(trucks)):
+            t = np.random.choice(trucks)
+            t.startTransportation(destination)
+
 
     def updateTrucksSteps(self):
         trucks = self.getTrucksOnTheMove()

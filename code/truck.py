@@ -1,5 +1,6 @@
 import company
 import world_set
+import math
 from random import randint
 
 class Truck:
@@ -16,10 +17,14 @@ class Truck:
         #destination is undefined in the beginning 
         self.destination = (-1, -1)
         self.finalDestination = False
+        self.miles = 0
 
     #returns if transport is available or not
     def getAvailability(self):
         return self.available
+
+    def getMiles(self):
+        return self.miles
 
     #starts a transportation
     def startTransportation(self, destination):
@@ -27,6 +32,8 @@ class Truck:
         self.time_transportation = 0.05
 
         self.destination = destination
+
+        self.miles += math.sqrt((self.destination[0] - self.current_location[0])**2 + (self.destination[1] - self.current_location[1])**2)
 
         self.current_location = (self.current_location[0] + self.time_transportation*(self.destination[0] - self.current_location[0]), 
                                 self.current_location[1] + self.time_transportation*(self.destination[1] - self.current_location[1]))

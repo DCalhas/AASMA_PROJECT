@@ -17,6 +17,15 @@ class Company:
     def getId(self):
         return self.id
 
+    def getTrucksMiles(self):
+        trucks = self.getTrucks()
+        miles = 0
+        
+        for t in trucks:
+            miles += t.getMiles()
+
+        return miles
+
     def addTruck(self, truck):
         self.trucks.append(truck)
 

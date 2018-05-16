@@ -154,17 +154,29 @@ class Company:
             t.stepTransportation()
 
 
-    def buyTrucks(self, policy):
+    def buyTrucks(self):
+        canBuy = True
+        while(canBuy):
+            policy = np.random.choice([1, 2, 3, 4])
+            #[1,2,3,4] 1: curto pessoas, 2: curto mercadorias, 3: longo pessoas, 4: longo mercadorias
+            if policy == 1 and self.getProfit() > truck.FiftyBus(randint(0, 100), self).getPrice():
+                x = truck.FiftyBus(randint(0, 100), self)
+                self.buyTruck(x)
+                continue
+            elif policy == 2 and self.getProfit() > truck.FiftyTruck(randint(0, 100), self).getPrice():
+                x = truck.FiftyTruck(randint(0, 100), self)
+                self.buyTruck(x)
+                continue
+            elif policy == 3 and self.getProfit() > truck.SeventyBus(randint(0, 100), self).getPrice():
+                x = truck.SeventyBus(randint(0, 100), self)
+                self.buyTruck(x)
+                continue
+            elif policy == 4 and self.getProfit() > truck.SeventyTruck(randint(0, 100), self).getPrice():
+                x = truck.SeventyTruck(randint(0, 100), self)
+                self.buyTruck(x)
+                continue
+            canBuy = False
 
-    #[1,2,3,4] 1: curto pessoas, 2: curto mercadorias, 3: longo pessoas, 4: longo mercadorias
-        if policy == 1:
-            x = truck.FiftyBus(randint(0, 100), self)
-        elif policy == 2:
-            x = truck.FiftyTruck(randint(0, 100), self)
-        elif policy == 3:
-            x = truck.SeventyBus(randint(0, 100), self)
-        elif policy == 4:
-            x = truck.SeventyTruck(randint(0, 100), self)
-
-        self.profit -= x.getPrice()
-        self.addTruck(x)
+    def buyTruck(self, t):
+        self.profit -= t.getPrice()
+        self.addTruck(t)

@@ -14,7 +14,6 @@ class Client:
 		return [source, dest, amount, base]
 
 	def getUtility(self, good, start, finish):
-
 		#why does the distance matter to the client??
 		distance = auction.distance(start, finish)
 		moodPeople = np.random.uniform(0.5, 1)

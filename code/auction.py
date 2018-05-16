@@ -20,6 +20,7 @@ def auction(companies, auctioneer):
 	bids = []
 	for c in companies:
 		offer = c.evaluateOffer(details)
+
 		if(offer):
 			bids += [(offer, c)]
 

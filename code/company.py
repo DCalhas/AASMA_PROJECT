@@ -1,4 +1,5 @@
 import truck
+import auction
 from random import randint
 import numpy as np
 import math
@@ -42,9 +43,9 @@ class Company:
         finish = offer[1]
         goods = offer[2]
         base = offer[3]
-        if(goods[0] > 0 and len(self.getAvailableBuses())==0):
+        if(goods[0] > 0 and len(self.getAvailableBuses()) == 0):
             return False
-        if(goods[1] > 0 and len(self.getAvailableTrucks())==0):
+        if(goods[1] > 0 and len(self.getAvailableTrucks()) == 0):
             return False
         dist = auction.distance(start, finish)
         priceGood = np.random.uniform(0.4, 0.9)
@@ -67,6 +68,16 @@ class Company:
 
         return busesAvailable
 
+    def getAvailableBuses(self):
+        busesAvailable = []
+
+        buses = self.getTrucks()
+
+        for b in buses:
+            if(b.getAvailability() and (type(b) is truck.FiftyBus or type(b) is truck.SeventyBus)):
+                busesAvailable += [b]
+        return busesAvailable
+
     def getAvailableTrucks(self):
         trucksAvailable = []
 
@@ -77,26 +88,6 @@ class Company:
                 trucksAvailable += [t]
         return trucksAvailable
 
-    #is this supposed to return a list or a boolean??
-    def getAvailableBusForOffer(self):
-
-        buses = self.getTrucks()
-
-        for t in buses:
-            if(type(t) is truck.FiftyBus or type(t) is truck.SeventyBus):
-                return True
-        return False
-
-    #is this supposed to return a list or a boolean??
-    def getAvailableTrucksForOffer(self):
-
-        trucks = self.getTrucks()
-
-        for t in trucks:
-            print(type(t))
-            if(type(t) is truck.FiftyTruck or type(t) is truck.SeventyTruck):
-                return True
-        return False
 
     def getNumberAvailableTrucks(self):
         s = 0
@@ -116,6 +107,7 @@ class Company:
 
         return move
 
+
     def printAvailableTrucks(self):
         s = 0
         trucks = self.getTrucks()
@@ -124,14 +116,6 @@ class Company:
                 s += 1
         print("Company " + self.getId() + " has " + str(s) + " trucks available")
 
-
-
-    def delivery(self, bid, destination):
-        self.updateProfit(bid)
-
-        #choose random available truck
-        t = np.random.choice(self.getAvailableTrucks())
-        t.startTransportation(destination)
 
     def delivery(self, bid, destination, goods):
         self.updateProfit(bid)
@@ -152,7 +136,6 @@ class Company:
         trucks = self.getTrucksOnTheMove()
         for t in trucks:
             t.stepTransportation()
-
 
     def buyTrucks(self):
         canBuy = True

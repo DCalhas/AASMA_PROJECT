@@ -54,7 +54,7 @@ def animate(i):
 	world_set.step(clients, companies, verbose=False)
 
 
-ani = animation.FuncAnimation(fig, animate, interval=500)
+ani = animation.FuncAnimation(fig, animate, interval=1)
 
 
 plt.show()

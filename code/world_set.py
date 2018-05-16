@@ -9,6 +9,7 @@ import time
 volumeDeliveryTruck = [10, 15, 20, 25, 30]
 volumeBus = [30, 40, 50, 60, 70]
 policy = [1, 2, 3, 4]
+tax = 1
 
 districts = {"Lisboa": (0, 50), "Setubal": (0, 40), "Beja": (10, 20), "Evora": (10, 30), "Faro": (10, 0), "Portalegre": (20, 50), "Castelo Branco": (20, 60),
 			"Santarem": (10, 60), "Coimbra": (0, 70), "Leiria": (0, 60), "Aveiro": (0, 80), "Guarda": (20, 70), "Porto": (0, 90), "Viana do Castelo": (0, 100),
@@ -21,19 +22,21 @@ districts_connections = [("Lisboa", "Setubal"), ("Lisboa", "Santarem"), ("Lisboa
 						("Braganca", "Guarda"), ("Santarem", "Viseu"), ("Braga", "Viseu"), ("Vila Real", "Braga"), ("Porto", "Viana do Castelo"),
 						("Setubal", "Evora"), ("Santarem", "Evora")]
 
-def step(clients, companies):
+def step(clients, companies, verbose=True):
 
 	client_offering = np.random.choice(clients)
 	#print(client_offering)
 
 	for c in companies:
+		c.updateProfit(-tax)
 		c.updateTrucksSteps()
-		c.printAvailableTrucks()
+		if(verbose):
+			c.printAvailableTrucks()
 
 
 	return auction.auction(companies, client_offering)
 
-def setupWorld(ncli, ntrucks, nbuses, ncompanies):
+def setupWorld(ncli, ntrucks, nbuses, ncompanies, verbose=True):
 	clients = []
 	companies = []
 
@@ -44,12 +47,17 @@ def setupWorld(ncli, ntrucks, nbuses, ncompanies):
 
 
 	for i in range(ncompanies):
+<<<<<<< HEAD
 		c = company.Company("COMP" + str(i), 500+i, np.random.choice(list(districts.keys())), np.random.random())
+=======
+		c = company.Company("COMP" + str(i), 50, np.random.choice(list(districts.keys())), np.random.random())
+>>>>>>> 4f41a9a4d842709501ddc7e843bf1b457ceb2826
 		while c.getProfit() > 0:
 			c.buyTrucks(np.random.choice(policy))
 		companies += [c]
 
-		print(c.getTrucks())
+		if(verbose):
+			print(c.getTrucks())
 
 
 	#print(clients[0].makeOffer(np.random.choice(list(districts.keys())), np.random.choice(list(districts.keys())), 10, 20))
@@ -65,5 +73,10 @@ if __name__ == "__main__":
 	while(1):
 		print(step(clients, companies))
 		for i in companies:
+<<<<<<< HEAD
 			print(i, " tem : " , i.getProfit())
 		time.sleep(1)
+=======
+			print("i tem : " , i.getProfit())
+		time.sleep(0.5)
+>>>>>>> 4f41a9a4d842709501ddc7e843bf1b457ceb2826

@@ -20,9 +20,12 @@ def auction(companies, auctioneer):
 	bids = []
 	for c in companies:
 		offer = c.evaluateOffer(details)
+<<<<<<< HEAD
 		'''print(offer)
 		print(c.getAvailableTrucks())
 		print(c.getAvailableBuses())'''
+=======
+>>>>>>> 4f41a9a4d842709501ddc7e843bf1b457ceb2826
 		if(offer):
 			bids += [(offer, c)]
 
@@ -31,11 +34,13 @@ def auction(companies, auctioneer):
 
 	winnerBid = min(bids, key = lambda t: t[0])[0]
 	company = min(bids, key = lambda t: t[0])[1]
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4f41a9a4d842709501ddc7e843bf1b457ceb2826
 	company.delivery(winnerBid, finish, goods)
 
 	return company, winnerBid
-
 
 if __name__ == "__main__":
 	clients = []

@@ -34,7 +34,7 @@ def step(clients, companies, verbose=True):
 
 	return auction.auction(companies, client_offering)
 
-def setupWorld(ncli, ntrucks, nbuses, ncompanies):
+def setupWorld(ncli, ntrucks, nbuses, ncompanies, verbose=True):
 	clients = []
 	companies = []
 
@@ -50,7 +50,8 @@ def setupWorld(ncli, ntrucks, nbuses, ncompanies):
 			c.buyTrucks(np.random.choice(policy))
 		companies += [c]
 
-		print(c.getTrucks())
+		if(verbose):
+			print(c.getTrucks())
 
 
 	#print(clients[0].makeOffer(np.random.choice(list(districts.keys())), np.random.choice(list(districts.keys())), 10, 20))

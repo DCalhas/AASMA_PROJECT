@@ -21,14 +21,15 @@ districts_connections = [("Lisboa", "Setubal"), ("Lisboa", "Santarem"), ("Lisboa
 						("Braganca", "Guarda"), ("Santarem", "Viseu"), ("Braga", "Viseu"), ("Vila Real", "Braga"), ("Porto", "Viana do Castelo"),
 						("Setubal", "Evora"), ("Santarem", "Evora")]
 
-def step(clients, companies):
+def step(clients, companies, verbose=True):
 
 	client_offering = np.random.choice(clients)
 
 
 	for c in companies:
 		c.updateTrucksSteps()
-		c.printAvailableTrucks()
+		if(verbose):
+			c.printAvailableTrucks()
 
 
 	return auction.auction(companies, client_offering)

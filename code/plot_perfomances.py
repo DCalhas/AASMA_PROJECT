@@ -24,7 +24,6 @@ def animate(i):
 
 	fig.clf()
 
-	world_set.step(clients, companies)
 	profits = []
 	for c in companies:
 		c_profits[companies.index(c)] += [c.getProfit()]
@@ -32,6 +31,8 @@ def animate(i):
 
 	for c in companies:
 		plt.plot(c_profits[companies.index(c)])
+
+	world_set.step(clients, companies, verbose=False)
 
 
 ani = animation.FuncAnimation(fig, animate, interval=100)

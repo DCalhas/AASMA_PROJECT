@@ -44,7 +44,7 @@ def setupWorld(ncli, ntrucks, nbuses, ncompanies):
 
 
 	for i in range(ncompanies):
-		c = company.Company("COMP" + str(i), 50+i, np.random.choice(list(districts.keys())), np.random.random())
+		c = company.Company("COMP" + str(i), 50, np.random.choice(list(districts.keys())), np.random.random())
 		while c.getProfit() > 0:
 			c.buyTrucks(np.random.choice(policy))
 		companies += [c]
@@ -66,4 +66,4 @@ if __name__ == "__main__":
 		print(step(clients, companies))
 		for i in companies:
 			print("i tem : " , i.getProfit())
-		time.sleep(5)
+		time.sleep(0.5)

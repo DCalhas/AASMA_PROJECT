@@ -66,4 +66,4 @@ if __name__ == "__main__":
 		print(step(clients, companies))
 		for i in companies:
 			print("i tem : " , i.getProfit())
-		time.sleep(1)
+		time.sleep(5)

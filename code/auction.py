@@ -4,6 +4,8 @@ import company
 import world_set
 import numpy as np
 
+policyAuction = [1,2,3] #1- pessoas 2-bens 3-both
+
 def distance(x, y):
 	return math.sqrt((x[0] - y[0])**2 + (x[1] - y[1])**2)
 
@@ -14,7 +16,16 @@ def auction(companies, auctioneer):
 	finish = world_set.districts[np.random.choice(list(world_set.districts.keys()))]
 	while (finish == start):
 		finish = world_set.districts[np.random.choice(list(world_set.districts.keys()))]
-	goods = (int(np.random.uniform(0, 10)), int(np.random.uniform(0, 10))) #(pessoa, bem)
+	policy = np.random.choice(policyAuction)
+
+	if(policy == 1):
+		goods = (int(np.random.uniform(1, 10)), 0) #(pessoa, bem)
+	elif(policy == 2):
+		goods = (0, int(np.random.uniform(1, 10)))
+	else:
+		goods = (int(np.random.uniform(1, 10)), int(np.random.uniform(1, 10)))
+
+	print(goods)
 	baseAuction = auctioneer.getUtility(goods, start, finish)
 	details = auctioneer.makeOffer(start, finish, goods, baseAuction)
 	bids = []

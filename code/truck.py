@@ -2,7 +2,7 @@ import company
 import world_set
 import math
 from random import randint
-
+import networkx as nx
 class Truck:
 
     def __init__(self, id, owner):
@@ -155,4 +155,13 @@ class SeventyTruck(DeliveryTruck):
 
     def __repr__(self):
         return str(self.id + " capacidade: " + str(self.volume_capacity))
+
+
+
+if __name__ == "__main__":
+    G=nx.Graph()
+    G.add_path([0,1,2])
+    G.add_path([0,10,2])
+    print([p for p in nx.all_shortest_paths(G,source=0,target=1)])
+
 

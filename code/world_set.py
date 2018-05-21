@@ -66,8 +66,8 @@ def setupWorld(ncli, ncompanies, verbose=True):
 
 
 	for i in range(ncompanies):
-		#c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), np.random.random())
-		c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), 0.5)
+		c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), np.random.random())
+		#c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), 0.5)
 		if(verbose):
 			print(c.getId() + ": ", 100, " district: " + c.getLocal(), " risk: ", c.getRisk())
 			print

@@ -25,7 +25,7 @@ def auction(companies, auctioneer):
 	else:
 		goods = (int(np.random.uniform(1, 10)), int(np.random.uniform(1, 10)))
 
-	print(goods)
+	#print(goods)
 	baseAuction = auctioneer.getUtility(goods, start, finish)
 	details = auctioneer.makeOffer(start, finish, goods, baseAuction)
 	bids = []

@@ -4,6 +4,7 @@ from random import randint
 import numpy as np
 import math
 import auction
+import policies
 
 class Company:
 
@@ -172,3 +173,21 @@ class Company:
     def buyTruck(self, t):
         self.profit -= t.getPrice()
         self.addTruck(t)
+
+    def investMidSimulation(self):
+        #define a threshold along with a policy
+        percentageTransports = policies.policyBuyMidSimulation(self, policy="percentage")
+        policy = np.random.choice([1, 2, 3, 4], p=percentageTransports)
+        
+        if policy == 1 and self.getProfit() > truck.FiftyBus(randint(0, 100), self).getPrice() + 20:
+            x = truck.FiftyBus(randint(0, 100), self)
+            self.buyTruck(x)
+        elif policy == 2 and self.getProfit() > truck.FiftyTruck(randint(0, 100), self).getPrice() + 20:
+            x = truck.FiftyTruck(randint(0, 100), self)
+            self.buyTruck(x)
+        elif policy == 3 and self.getProfit() > truck.SeventyBus(randint(0, 100), self).getPrice() + 20:
+            x = truck.SeventyBus(randint(0, 100), self)
+            self.buyTruck(x)
+        elif policy == 4 and self.getProfit() > truck.SeventyTruck(randint(0, 100), self).getPrice() + 20:
+            x = truck.SeventyTruck(randint(0, 100), self)
+            self.buyTruck(x)

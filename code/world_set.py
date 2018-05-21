@@ -28,6 +28,7 @@ def step(clients, companies, verbose=True):
 
 	for c in companies:
 		c.updateProfit(-tax)
+		c.investMidSimulation()
 		c.updateTrucksSteps()
 		if(verbose):
 			c.printAvailableTrucks()

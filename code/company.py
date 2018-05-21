@@ -5,6 +5,8 @@ import numpy as np
 import math
 import auction
 import policies
+import random
+import world_set
 
 class Company:
 
@@ -22,7 +24,7 @@ class Company:
     def getTrucksMiles(self):
         trucks = self.getTrucks()
         miles = 0
-        
+
         for t in trucks:
             miles += t.getMiles()
 
@@ -45,6 +47,14 @@ class Company:
 
     def updateProfit(self, budget):
         self.profit += budget
+        if(self.profit <= world_set.tax and len(self.getTrucks()) <= 1):
+            return "broken"
+        elif(self.profit <= world_set.tax):
+            return "sellTruck"
+        elif(len(self.getTrucks()) == 0):
+            return "noTrucks"
+        else:
+            return True
 
     def getLocal(self):
         return self.local
@@ -184,7 +194,7 @@ class Company:
         #define a threshold along with a policy
         percentageTransports = policies.policyBuyMidSimulation(self, policy="percentage")
         policy = np.random.choice([1, 2, 3, 4], p=percentageTransports)
-        
+
         if policy == 1 and self.getProfit() > truck.FiftyBus(randint(0, 100), self).getPrice() + 20:
             x = truck.FiftyBus(randint(0, 100), self)
             self.buyTruck(x)
@@ -197,3 +207,13 @@ class Company:
         elif policy == 4 and self.getProfit() > truck.SeventyTruck(randint(0, 100), self).getPrice() + 20:
             x = truck.SeventyTruck(randint(0, 100), self)
             self.buyTruck(x)
+
+    def auctionProposel(self, truck, base):
+        originalPrice = truck.getPrice()
+
+        offer = round(random.uniform(originalPrice*0.4, originalPrice*0.7), 2)
+
+        if(offer>base):
+            return offer
+        else:
+            return False

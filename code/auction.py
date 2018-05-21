@@ -44,6 +44,31 @@ def auction(companies, auctioneer):
 
 	return company, winnerBid
 
+def avoidFailure(seller, companies):
+	truck = seller.getTrucks()[0]
+	base = (truck.getPrice())/2
+	bids = []
+	for i in companies:
+		offer = i.auctionProposel(truck, base)
+		if(offer):
+			bids += [(offer,i)]
+
+	if(len(bids) == 0):
+		return None, None
+
+	winnerBid = max(bids, key = lambda t: t[0])[0]
+	buyer = max(bids, key = lambda t: t[0])[1]
+
+	seller.delTruck(truck)
+	seller.updateProfit(winnerBid)
+
+	buyer.addTruck(truck)
+	buyer.updateProfit(-winnerBid)
+
+
+
+
+
 if __name__ == "__main__":
 	clients = []
 	clients += [client.Client("Joao")]

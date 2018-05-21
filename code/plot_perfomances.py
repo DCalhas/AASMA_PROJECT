@@ -170,7 +170,7 @@ def averageMilesPerCompany(i):
 
 
 
-ani = animation.FuncAnimation(fig, averageMilesPerCompany, interval=1)
+ani = animation.FuncAnimation(fig, profit, interval=1)
 
 
 plt.show()

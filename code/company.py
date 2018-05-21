@@ -47,6 +47,8 @@ class Company:
 
     def updateProfit(self, budget):
         self.profit += budget
+    
+    def getState(self):
         if(self.profit <= world_set.tax and len(self.getTrucks()) <= 1):
             return "broken"
         elif(self.profit <= world_set.tax):
@@ -54,7 +56,7 @@ class Company:
         elif(len(self.getTrucks()) == 0):
             return "noTrucks"
         else:
-            return True
+            return "stable"
 
     def getLocal(self):
         return self.local
@@ -131,6 +133,15 @@ class Company:
 
         return move
 
+    def getTrucksNotOnTheMove(self):
+        trucks = self.getTrucks()
+
+        home = []
+        for t in trucks:
+            if(t.getAvailability()):
+                home += [t]
+
+        return home
 
     def printAvailableTrucks(self):
         s = 0
@@ -208,7 +219,7 @@ class Company:
             x = truck.SeventyTruck(randint(0, 100), self)
             self.buyTruck(x)
 
-    def auctionProposel(self, truck, base):
+    def auctionProposal(self, truck, base):
         originalPrice = truck.getPrice()
 
         offer = round(random.uniform(originalPrice*0.4, originalPrice*0.7), 2)

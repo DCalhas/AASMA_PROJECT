@@ -45,16 +45,16 @@ def auction(companies, auctioneer):
 	return company, winnerBid
 
 def avoidFailure(seller, companies):
-	truck = seller.getTrucks()[0]
+	truck = seller.getTrucksNotOnTheMove()[0]
 	base = (truck.getPrice())/2
 	bids = []
 	for i in companies:
-		offer = i.auctionProposel(truck, base)
+		offer = i.auctionProposal(truck, base)
 		if(offer):
 			bids += [(offer,i)]
 
 	if(len(bids) == 0):
-		return None, None
+		return
 
 	winnerBid = max(bids, key = lambda t: t[0])[0]
 	buyer = max(bids, key = lambda t: t[0])[1]

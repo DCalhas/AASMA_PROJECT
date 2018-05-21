@@ -27,8 +27,9 @@ def step(clients, companies, verbose=True):
 	client_offering = np.random.choice(clients)
 
 	for c in companies:
-		state = c.updateProfit(-tax)
-		checkState(state, c)
+		c.updateProfit(-tax)
+		state = c.getState()
+		checkState(state, c, companies)
 		c.investMidSimulation()
 		c.updateTrucksSteps()
 		if(verbose):
@@ -37,7 +38,7 @@ def step(clients, companies, verbose=True):
 
 	return auction.auction(companies, client_offering)
 
-def checkState(state, c):
+def checkState(state, c, companies):
 	if(state == "broken"):
 		companies.remove(c)
 	elif(state == "sellTruck"):
@@ -77,4 +78,4 @@ if __name__ == "__main__":
 		print(step(clients, companies))
 		for c in companies:
 			print("Company " + c.getId() + " : " , c.getProfit(), "$$ tenho: ", len(c.getTrucks()), " trucks")
-		time.sleep(1)
+		time.sleep(0.5)

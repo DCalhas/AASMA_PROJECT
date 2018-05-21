@@ -129,7 +129,48 @@ def milesPerCompany(i):
 ####################################################################################################
 
 
-ani = animation.FuncAnimation(fig, profit, interval=1)
+def averageMilesPerCompany(i):
+
+	global c_miles
+
+
+	fig.clf()
+
+	newMiles = []
+	for c in companies:
+		if(c.getNumberDeliveries() != 0):
+			newMiles += [[c.getTrucksMiles()/c.getNumberDeliveries()]]
+		else:
+			newMiles += [[c.getTrucksMiles()]]
+
+	previousMiles = []
+
+	for m in c_miles:
+		if(len(m)):
+			previousMiles += [m[-1]]
+
+
+	if(compareWithPreviousIteration(previousMiles, newMiles) or not len(c_miles[0])):
+		#add to c_profits new profits
+		for c in companies:
+			c_miles[companies.index(c)] += [newMiles[companies.index(c)]]
+	
+	for c in companies:
+		plt.plot(c_miles[companies.index(c)], label=c.getId())
+
+	plt.title("Average miles per delivery by company")
+	plt.ylabel("Miles (km)")
+	plt.xlabel("time step")
+
+	plt.legend(bbox_to_anchor=(0., 1.05, 1., .102), loc=3,
+           ncol=len(companies), mode="expand", borderaxespad=0.)
+	#plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+	world_set.step(clients, companies, verbose=False)
+
+
+
+ani = animation.FuncAnimation(fig, averageMilesPerCompany, interval=1)
 
 
 plt.show()

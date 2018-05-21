@@ -14,6 +14,7 @@ class Company:
         self.profit = budget
         self.local = local
         self.risk = risk
+        self.numberDeliveries = 0
 
     def getId(self):
         return self.id
@@ -26,6 +27,9 @@ class Company:
             miles += t.getMiles()
 
         return miles
+
+    def getNumberDeliveries(self):
+        return self.numberDeliveries
 
     def addTruck(self, truck):
         self.trucks.append(truck)
@@ -134,11 +138,13 @@ class Company:
         buses = self.getAvailableBuses()
         if(goods[0] > 0 and len(buses)):
             b = np.random.choice(buses)
+            self.numberDeliveries += 1
             b.startTransportation(destination)
 
         trucks = self.getAvailableTrucks()
         if(goods[1] > 0 and len(trucks)):
             t = np.random.choice(trucks)
+            self.numberDeliveries += 1
             t.startTransportation(destination)
 
 

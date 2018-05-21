@@ -42,6 +42,12 @@ class Company:
     def getTrucks(self):
         return self.trucks
 
+    def declareBankrupcy(self, t):
+        print(self.getId() + " entered bankrupcy at timestep ", t, " it was located at " + self.getLocal() + " with  risk of ", self.getRisk())
+
+    def getRisk(self):
+        return self.risk
+
     def getProfit(self):
         return self.profit
 

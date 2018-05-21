@@ -11,6 +11,8 @@ volumeBus = [30, 40, 50, 60, 70]
 
 tax = 2
 
+timestep = 0
+
 districts = {"Lisboa": (0, 50), "Setubal": (0, 40), "Beja": (10, 20), "Evora": (10, 30), "Faro": (10, 0), "Portalegre": (20, 50), "Castelo Branco": (20, 60),
 			"Santarem": (10, 60), "Coimbra": (0, 70), "Leiria": (0, 60), "Aveiro": (0, 80), "Guarda": (20, 70), "Porto": (0, 90), "Viana do Castelo": (0, 100),
 			"Vila Real": (10, 100), "Viseu": (10, 70), "Braga": (10, 90), "Braganca": (20, 100)}
@@ -23,13 +25,16 @@ districts_connections = [("Lisboa", "Setubal"), ("Lisboa", "Santarem"), ("Lisboa
 						("Setubal", "Evora"), ("Santarem", "Evora")]
 
 def step(clients, companies, verbose=True):
+	global timestep
+	timestep += 1
+
 
 	client_offering = np.random.choice(clients)
 
 	for c in companies:
 		c.updateProfit(-tax)
 		state = c.getState()
-		checkState(state, c, companies)
+		checkState(state, c, companies, timestep)
 		c.investMidSimulation()
 		c.updateTrucksSteps()
 		if(verbose):
@@ -38,17 +43,19 @@ def step(clients, companies, verbose=True):
 
 	return auction.auction(companies, client_offering)
 
-def checkState(state, c, companies):
+def checkState(state, c, companies, timestep):
 	if(state == "broken"):
 		companies.remove(c)
+		c.declareBankrupcy(timestep)
 	elif(state == "sellTruck"):
 		auction.avoidFailure(c, companies)
 	elif(state == "noTrucks"):
 		companies.remove(c)
+		c.declareBankrupcy(timestep)
 	else:
 		return True
 
-def setupWorld(ncli, ntrucks, nbuses, ncompanies, verbose=True):
+def setupWorld(ncli, ncompanies, verbose=True):
 	clients = []
 	companies = []
 
@@ -59,11 +66,13 @@ def setupWorld(ncli, ntrucks, nbuses, ncompanies, verbose=True):
 
 
 	for i in range(ncompanies):
-		c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), np.random.random())
+		#c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), np.random.random())
+		c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), 0.5)
+		if(verbose):
+			print(c.getId() + ": ", 100, " district: " + c.getLocal(), " risk: ", c.getRisk())
+			print
 		c.buyTrucks()
 		companies += [c]
-		if(verbose):
-			print(c.getTrucks())
 
 	return clients, companies
 
@@ -72,7 +81,7 @@ def setupWorld(ncli, ntrucks, nbuses, ncompanies, verbose=True):
 if __name__ == "__main__":
 
 
-	clients, companies = setupWorld(4, 4, 4, 4)
+	clients, companies = setupWorld(5, 4)
 
 	while(1):
 		print(step(clients, companies))

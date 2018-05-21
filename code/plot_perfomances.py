@@ -9,7 +9,7 @@ import company
 
 fig = plt.figure()
 
-clients, companies = world_set.setupWorld(4, 4, 4, 4, verbose=False)
+clients, companies = world_set.setupWorld(5, 10, verbose=True)
 
 c_profits = []
 
@@ -62,7 +62,7 @@ def profit(i):
 			c_profits[companies.index(c)] += [newProfits[companies.index(c)]]
 	
 	for c in companies:
-		plt.plot(c_profits[companies.index(c)], label=c.getId())
+		plt.plot(c_profits[companies.index(c)], label=c.getId()+" "+c.getLocal())
 
 	plt.title("Balance of companies")
 	plt.ylabel("Balance amount (euros)")
@@ -106,7 +106,7 @@ def milesPerCompany(i):
 			c_miles[companies.index(c)] += [newMiles[companies.index(c)]]
 	
 	for c in companies:
-		plt.plot(c_miles[companies.index(c)], label=c.getId())
+		plt.plot(c_miles[companies.index(c)], label=c.getId()+" "+c.getLocal())
 
 	plt.title("Miles ran by all the trucks of  the companies")
 	plt.ylabel("Miles (km)")
@@ -156,7 +156,7 @@ def averageMilesPerCompany(i):
 			c_miles[companies.index(c)] += [newMiles[companies.index(c)]]
 	
 	for c in companies:
-		plt.plot(c_miles[companies.index(c)], label=c.getId())
+		plt.plot(c_miles[companies.index(c)], label=c.getId()+" "+c.getLocal())
 
 	plt.title("Average miles per delivery by company")
 	plt.ylabel("Miles (km)")

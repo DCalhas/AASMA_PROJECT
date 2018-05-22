@@ -53,7 +53,7 @@ class Company:
 
     def updateProfit(self, budget):
         self.profit += budget
-    
+
     def getState(self):
         if(self.profit <= world_set.tax and len(self.getTrucks()) <= 1):
             return "broken"
@@ -79,11 +79,15 @@ class Company:
             return False
         if(goods[1] > 0 and len(self.getAvailableTrucks()) == 0):
             return False
-        dist = auction.distance(start, finish)
-        priceGood = np.random.uniform(0.4, 0.9)
-        pricePeople =  np.random.uniform(0.9, 1.4)
 
-        return ((pricePeople*goods[0] + priceGood*goods[1]) * (dist)) * (1+self.risk)
+        dist = auction.distance(start, finish) + auction.distance(start, world_set.districts[self.getLocal()])
+        priceGood = np.random.uniform(0.3, 0.6)
+        pricePeople =  np.random.uniform(0.6, 1.2)
+
+        bid = ((pricePeople*goods[0] + priceGood*goods[1]) * (dist)) * (1+self.risk)
+        if(bid>base):
+            return bid
+
 
     def getUtility(self, distance):
         #put 0.2 after, if we organize the trucks with the products
@@ -160,7 +164,6 @@ class Company:
 
     def delivery(self, bid, destination, goods):
         self.updateProfit(bid)
-
 
         buses = self.getAvailableBuses()
         if(goods[0] > 0 and len(buses)):

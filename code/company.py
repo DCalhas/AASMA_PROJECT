@@ -57,7 +57,7 @@ class Company:
     def getState(self):
         if(self.profit <= world_set.tax and len(self.getTrucks()) <= 1):
             return "broken"
-        elif(self.profit <= world_set.tax):
+        elif(self.profit <= world_set.tax and len(self.getTrucksNotOnTheMove())):
             return "sellTruck"
         elif(len(self.getTrucks()) == 0):
             return "noTrucks"
@@ -172,6 +172,7 @@ class Company:
             b.setAvailability(False)
             #b.startTransportation(destination)
             world_set.poolDeliveries += [(b, destination, bid, self)]
+            
 
         trucks = self.getAvailableTrucks()
         if(goods[1] > 0 and len(trucks)):
@@ -181,13 +182,14 @@ class Company:
             #t.startTransportation(destination)
             world_set.poolDeliveries += [(t, destination,bid, self)]
 
+        return world_set.poolDeliveries
+
 
     def updateTrucksSteps(self):
-        if(len(world_set.poolDeliveries)>=3):
+        if(len(world_set.poolDeliveries)>=6):
             for offer in world_set.poolDeliveries:
                 if offer[0] in self.getTrucks():
                     offer[0].startTransportation(offer[1])
-                    print("DISTANCE" , auction.distance(world_set.districts[self.getLocal()], offer[1]))
                     self.updateProfit(- auction.distance(world_set.districts[self.getLocal()], offer[1]))
                     world_set.poolDeliveries.remove(offer)
                     break
@@ -250,3 +252,18 @@ class Company:
             return offer
         else:
             return False
+
+    def changeDelivery(self, old, new, truck):
+
+        #old and new are tuples that are in the pool
+
+        #discard the truck
+        old[0].setAvailability(True)
+
+        #remove the profit gained
+        self.updateProfit(- old[2])
+
+
+        truck.startTransportation(new[1])
+        self.updateProfit(new[2])
+

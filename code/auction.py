@@ -36,16 +36,17 @@ def auction(companies, auctioneer):
 			bids += [(offer, c)]
 
 	if(len(bids) == 0):
-		return None, None
+		return None, None, False
 
 	winnerBid, company = auctioneer.chooseOffer(bids)
 	
-	company.delivery(winnerBid, finish, goods)
+
+	pool = company.delivery(winnerBid, finish, goods)
 
 	#client puts in its registers that it buys from company x
 	auctioneer.buyFromCompany(company.getId())
 
-	return company, winnerBid
+	return company, winnerBid, pool
 
 def avoidFailure(seller, companies):
 	truck = seller.getTrucksNotOnTheMove()[0]

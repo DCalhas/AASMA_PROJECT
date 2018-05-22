@@ -8,6 +8,9 @@ import time
 
 volumeDeliveryTruck = [10, 15, 20, 25, 30]
 volumeBus = [30, 40, 50, 60, 70]
+
+
+#truck destination bid company - ordered by position
 poolDeliveries = []
 
 tax = 2
@@ -24,26 +27,50 @@ districts_connections = [("Lisboa", "Setubal"), ("Lisboa", "Santarem"), ("Lisboa
 						("Viana do Castelo", "Braganca"), ("Aveiro", "Leiria"), ("Aveiro", "Coimbra"), ("Vila Real", "Viana do Castelo"), ("Viana do Castelo", "Braganca"),
 						("Braganca", "Guarda"), ("Santarem", "Viseu"), ("Braga", "Viseu"), ("Vila Real", "Braga"), ("Porto", "Viana do Castelo"),
 						("Setubal", "Evora"), ("Santarem", "Evora")]
+def checkCooperation():
+	print("BICanoasiasicnaosc", len(poolDeliveries))
+	#iterate over all the offers in the pool
+	for i in poolDeliveries:
+		print(i)
+		for j in poolDeliveries:
+			if(i[3].getId() != j[3].getId()):
+				c_one = i[2] - auction.distance(districts[i[3].getLocal()], i[1])
+				c_two = j[2] - auction.distance(districts[j[3].getLocal()], j[1])
+
+				c_one_changed = j[2] - auction.distance(districts[i[3].getLocal()], j[1])
+				c_two_changed = i[2] - auction.distance(districts[j[3].getLocal()], i[1])
+
+				if(c_one_changed > c_one and c_two_changed > c_two):
+					print("\n\n\n\n\n\n\n\n\n\nTEAHHHHHHHHHHH")
+				
+
 
 def step(clients, companies, verbose=True):
-	global timestep
+	global timestep, poolDeliveries
 	timestep += 1
 
 
 	client_offering = np.random.choice(clients)
+
+	checkCooperation()
+
 
 	for c in companies:
 		c.updateProfit(-tax)
 		state = c.getState()
 		checkState(state, c, companies, timestep)
 		c.investMidSimulation()
-		c.changeDelivery()
 		c.updateTrucksSteps()
 		if(verbose):
 			c.printAvailableTrucks()
 
 
-	return auction.auction(companies, client_offering)
+	results = auction.auction(companies, client_offering)
+
+	if(results[2]):
+		poolDeliveries = results[2]
+
+	return results[0], results[1]
 
 def checkState(state, c, companies, timestep):
 	if(state == "broken"):

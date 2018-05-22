@@ -4,6 +4,7 @@ import truck
 import client
 import numpy as np
 import time
+import inspect
 
 
 volumeDeliveryTruck = [10, 15, 20, 25, 30]
@@ -31,9 +32,25 @@ def checkCooperation():
 	print("BICanoasiasicnaosc", len(poolDeliveries))
 	#iterate over all the offers in the pool
 	for i in poolDeliveries:
-		print(i)
 		for j in poolDeliveries:
 			if(i[3].getId() != j[3].getId()):
+
+				if(isinstance(i[0], truck.Bus)):
+					if(len(j[3].getAvailableBuses()) <  1):
+						return False
+
+				if(isinstance(i[0], truck.DeliveryTruck)):
+					if(len(j[3].getAvailableTrucks()) <  1):
+						return False
+
+				if(isinstance(j[0], truck.Bus)):
+					if(len(i[3].getAvailableBuses()) <  1):
+						return False
+
+				if(isinstance(j[0], truck.DeliveryTruck)):
+					if(len(i[3].getAvailableTrucks()) <  1):
+						return False
+
 				c_one = i[2] - auction.distance(districts[i[3].getLocal()], i[1])
 				c_two = j[2] - auction.distance(districts[j[3].getLocal()], j[1])
 
@@ -41,8 +58,20 @@ def checkCooperation():
 				c_two_changed = i[2] - auction.distance(districts[j[3].getLocal()], i[1])
 
 				if(c_one_changed > c_one and c_two_changed > c_two):
-					print("\n\n\n\n\n\n\n\n\n\nTEAHHHHHHHHHHH")
-				
+
+					print(i[3].getProfit(), "Antes da mudança!, i ")
+					print(j[3].getProfit(), "Antes da mudança!, j")
+
+
+					i[3].changeDelivery(i, j)
+					j[3].changeDelivery(j, i)
+
+					print(i[3].getProfit(), "DEPOIS i")
+					print(j[3].getProfit(), "DEPOIS j")
+					time.sleep(2)
+					poolDeliveries.remove(i)
+					poolDeliveries.remove(j)
+
 
 
 def step(clients, companies, verbose=True):
@@ -92,7 +121,7 @@ def setupWorld(ncli, ncompanies, verbose=True):
 
 
 	for i in range(ncompanies):
-		c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), np.random.random())
+		c = company.Company("COMP" + str(i), 200, np.random.choice(list(districts.keys())), np.random.random())
 		#c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), 0.5)
 		if(verbose):
 			print(c.getId() + ": ", 100, " district: " + c.getLocal(), " risk: ", c.getRisk())
@@ -118,4 +147,4 @@ if __name__ == "__main__":
 		print(step(clients, companies))
 		for c in companies:
 			print("Company " + c.getId() + " : " , c.getProfit(), "$$ tenho: ", len(c.getTrucks()), " trucks")
-		time.sleep(0.5)
+		time.sleep(0.01)

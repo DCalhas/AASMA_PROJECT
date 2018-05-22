@@ -172,7 +172,7 @@ class Company:
             b.setAvailability(False)
             #b.startTransportation(destination)
             world_set.poolDeliveries += [(b, destination, bid, self)]
-            
+
 
         trucks = self.getAvailableTrucks()
         if(goods[1] > 0 and len(trucks)):
@@ -186,7 +186,7 @@ class Company:
 
 
     def updateTrucksSteps(self):
-        if(len(world_set.poolDeliveries)>=6):
+        if(len(world_set.poolDeliveries)>=10):
             for offer in world_set.poolDeliveries:
                 if offer[0] in self.getTrucks():
                     offer[0].startTransportation(offer[1])
@@ -253,7 +253,7 @@ class Company:
         else:
             return False
 
-    def changeDelivery(self, old, new, truck):
+    def changeDelivery(self, old, new):
 
         #old and new are tuples that are in the pool
 
@@ -264,6 +264,5 @@ class Company:
         self.updateProfit(- old[2])
 
 
-        truck.startTransportation(new[1])
+        new[0].startTransportation(new[1])
         self.updateProfit(new[2])
-

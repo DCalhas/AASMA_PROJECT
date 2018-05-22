@@ -38,9 +38,12 @@ def auction(companies, auctioneer):
 	if(len(bids) == 0):
 		return None, None
 
+	auctioneer.chooseOffer(bids)
 	winnerBid = min(bids, key = lambda t: t[0])[0]
 	company = min(bids, key = lambda t: t[0])[1]
 	company.delivery(winnerBid, finish, goods)
+
+	auctioneer.buyFromCompany(company.getId())
 
 	return company, winnerBid
 

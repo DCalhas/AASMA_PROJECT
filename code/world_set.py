@@ -60,10 +60,7 @@ def setupWorld(ncli, ncompanies, verbose=True):
 	companies = []
 
 
-	for i in range(ncli):
-
-		clients += [client.Client("CL" + str(i))]
-
+	
 
 	for i in range(ncompanies):
 		c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), np.random.random())
@@ -73,6 +70,11 @@ def setupWorld(ncli, ncompanies, verbose=True):
 			print
 		c.buyTrucks()
 		companies += [c]
+
+	for i in range(ncli):
+
+		clients += [client.Client("CL" + str(i), companies)]
+
 
 	return clients, companies
 

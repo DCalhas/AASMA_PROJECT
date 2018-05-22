@@ -1,6 +1,7 @@
 import auction
 import numpy as np
 import company
+import math
 
 class Client:
 	def __init__(self, id, companies):
@@ -10,12 +11,14 @@ class Client:
 		for c in companies:
 			self.companyCount[c.getId()] = 0
 
+		self.countPurchases = 0
+
 	def getId(self):
 		return self.id
 
 	def buyFromCompany(self, companyId):
 		self.companyCount[companyId] += 1
-		self.printHistory()
+		#self.printHistory()
 
 	def printHistory(self):
 		for companyId, count in self.companyCount.items():
@@ -24,13 +27,31 @@ class Client:
 	def makeOffer(self, source, dest, amount, base):
 		return [source, dest, amount, base]
 
-	def chooseOffer(self, bids):
+	def chooseOffer(self, bids, verbose=True):
 		#bids is a list of tuples that contain the bid and the respective company that made the bid
-		return bids[0]
+		minUtility = math.inf
+		bidChosen = 0
+		for b in bids:
+			beenThere = self.companyCount[b[1].getId()]
+			w = - 20
+			utility = w * beenThere + b[0]
+			if(utility < minUtility):
+				minUtility = utility
+				companyChosen = b[1]
+				bidChosen = b[0]
+
+		#if(verbose):
+			#print("Company chosen was " + companyChosen.getId(), " with bid chosen ", bidChosen, " with ", self.countPurchases, " made, from client " + self.getId())
+		
+		self.countPurchases += 1
+
+		return bidChosen, companyChosen
+
+
+
 
 	def getUtility(self, good, start, finish):
 		#why does the distance matter to the client??
-		print("\n\n\n\n\n\n\n\n\n\n\n\n")
 		distance = auction.distance(start, finish)
 		moodPeople = np.random.uniform(1.2, 1.7)
 		moodGoods = np.random.uniform(0.8, 1.3)

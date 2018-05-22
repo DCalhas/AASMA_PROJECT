@@ -9,7 +9,7 @@ import company
 
 fig = plt.figure()
 
-clients, companies = world_set.setupWorld(5, 10, verbose=True)
+clients, companies = world_set.setupWorld(1, 4, verbose=True)
 
 c_profits = []
 

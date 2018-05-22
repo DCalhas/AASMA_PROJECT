@@ -14,7 +14,7 @@ class Truck:
         self.current_location = world_set.districts[owner.getLocal()]
 
         self.time_transportation = 0
-        #destination is undefined in the beginning 
+        #destination is undefined in the beginning
         self.destination = (-1, -1)
         self.finalDestination = False
         self.miles = 0
@@ -22,6 +22,9 @@ class Truck:
     #returns if transport is available or not
     def getAvailability(self):
         return self.available
+
+    def setAvailability(self, bool):
+        self.available = bool
 
     def getMiles(self):
         return self.miles
@@ -35,7 +38,7 @@ class Truck:
 
         self.miles += math.sqrt((self.destination[0] - self.current_location[0])**2 + (self.destination[1] - self.current_location[1])**2)
 
-        self.current_location = (self.current_location[0] + self.time_transportation*(self.destination[0] - self.current_location[0]), 
+        self.current_location = (self.current_location[0] + self.time_transportation*(self.destination[0] - self.current_location[0]),
                                 self.current_location[1] + self.time_transportation*(self.destination[1] - self.current_location[1]))
 
     #decreases the time of a transportation
@@ -45,7 +48,7 @@ class Truck:
             self.available = True
             return True
 
-            
+
         if(self.time_transportation >= 1):
             self.time_transportation = 0.05
             self.destination = world_set.districts[self.getLocal()]
@@ -53,7 +56,7 @@ class Truck:
 
         self.time_transportation += 0.05
         #formula that was in the map class
-        self.current_location = (self.current_location[0] + self.time_transportation*(self.destination[0] - self.current_location[0]), 
+        self.current_location = (self.current_location[0] + self.time_transportation*(self.destination[0] - self.current_location[0]),
                                 self.current_location[1] + self.time_transportation*(self.destination[1] - self.current_location[1]))
 
         return False
@@ -163,5 +166,3 @@ if __name__ == "__main__":
     G.add_path([0,1,2])
     G.add_path([0,10,2])
     print([p for p in nx.all_shortest_paths(G,source=0,target=1)])
-
-

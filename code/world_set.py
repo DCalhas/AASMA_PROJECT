@@ -8,6 +8,7 @@ import time
 
 volumeDeliveryTruck = [10, 15, 20, 25, 30]
 volumeBus = [30, 40, 50, 60, 70]
+poolDeliveries = []
 
 tax = 2
 
@@ -36,6 +37,7 @@ def step(clients, companies, verbose=True):
 		state = c.getState()
 		checkState(state, c, companies, timestep)
 		c.investMidSimulation()
+		c.changeDelivery()
 		c.updateTrucksSteps()
 		if(verbose):
 			c.printAvailableTrucks()
@@ -60,7 +62,7 @@ def setupWorld(ncli, ncompanies, verbose=True):
 	companies = []
 
 
-	
+
 
 	for i in range(ncompanies):
 		c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), np.random.random())

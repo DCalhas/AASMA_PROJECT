@@ -169,16 +169,29 @@ class Company:
         if(goods[0] > 0 and len(buses)):
             b = np.random.choice(buses)
             self.numberDeliveries += 1
-            b.startTransportation(destination)
+            b.setAvailability(False)
+            #b.startTransportation(destination)
+            world_set.poolDeliveries += [(b, destination, bid, self)]
 
         trucks = self.getAvailableTrucks()
         if(goods[1] > 0 and len(trucks)):
             t = np.random.choice(trucks)
             self.numberDeliveries += 1
-            t.startTransportation(destination)
+            t.setAvailability(False)
+            #t.startTransportation(destination)
+            world_set.poolDeliveries += [(t, destination,bid, self)]
 
 
     def updateTrucksSteps(self):
+        if(len(world_set.poolDeliveries)>=3):
+            for offer in world_set.poolDeliveries:
+                if offer[0] in self.getTrucks():
+                    offer[0].startTransportation(offer[1])
+                    print("DISTANCE" , auction.distance(world_set.districts[self.getLocal()], offer[1]))
+                    self.updateProfit(- auction.distance(world_set.districts[self.getLocal()], offer[1]))
+                    world_set.poolDeliveries.remove(offer)
+                    break
+
         trucks = self.getTrucksOnTheMove()
         for t in trucks:
             t.stepTransportation()

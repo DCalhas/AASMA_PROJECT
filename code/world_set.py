@@ -29,7 +29,6 @@ districts_connections = [("Lisboa", "Setubal"), ("Lisboa", "Santarem"), ("Lisboa
 						("Braganca", "Guarda"), ("Santarem", "Viseu"), ("Braga", "Viseu"), ("Vila Real", "Braga"), ("Porto", "Viana do Castelo"),
 						("Setubal", "Evora"), ("Santarem", "Evora")]
 def checkCooperation():
-	print("BICanoasiasicnaosc", len(poolDeliveries))
 	#iterate over all the offers in the pool
 	for i in poolDeliveries:
 		for j in poolDeliveries:
@@ -59,18 +58,15 @@ def checkCooperation():
 
 				if(c_one_changed > c_one and c_two_changed > c_two):
 
-					print(i[3].getProfit(), "Antes da mudança!, i ")
-					print(j[3].getProfit(), "Antes da mudança!, j")
-
-
 					i[3].changeDelivery(i, j)
 					j[3].changeDelivery(j, i)
 
-					print(i[3].getProfit(), "DEPOIS i")
-					print(j[3].getProfit(), "DEPOIS j")
-					time.sleep(2)
+					print(j[3].getId() + " and " + i[3].getId() + " cooperated between each other by swaping offers")
+
 					poolDeliveries.remove(i)
 					poolDeliveries.remove(j)
+
+					return
 
 
 

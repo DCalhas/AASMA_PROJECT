@@ -55,7 +55,7 @@ class Company:
         self.profit += budget
 
     def getState(self):
-        if(self.profit <= world_set.tax and len(self.getTrucks()) <= 1):
+        if(self.profit <= world_set.tax and len(self.getTrucksNotOnTheMove()) == 0):
             return "broken"
         elif(self.profit <= world_set.tax and len(self.getTrucksNotOnTheMove())):
             return "sellTruck"

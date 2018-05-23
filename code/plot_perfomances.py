@@ -9,12 +9,17 @@ import company
 
 fig = plt.figure()
 
-clients, companies = world_set.setupWorld(1, 4, verbose=True)
+clients, companies = world_set.setupWorld(1, 10, verbose=True)
 
 c_profits = []
 
 for c in companies:
 	c_profits += [[]]
+
+companiesIds = []
+
+for c in companies:
+	companiesIds += [c.getId()]
 
 
 c_miles = []
@@ -43,6 +48,22 @@ def profit(i):
 
 
 	fig.clf()
+
+	failure = True
+	while(failure):
+		i = 0
+		failure = False
+		for prof in c_profits:
+			if(i == len(companies)):
+				del(c_profits[i])
+				del(companiesIds[i])
+			elif(companies[i].getId() == companiesIds[i]):
+				i += 1
+			else:
+				del(c_profits[i])
+				del(companiesIds[i])
+				failure = True
+
 
 	newProfits = []
 	for c in companies:
@@ -88,6 +109,21 @@ def milesPerCompany(i):
 
 
 	fig.clf()
+
+	failure = True
+	while(failure):
+		i = 0
+		failure = False
+		for prof in c_miles:
+			if(i == len(companies)):
+				del(c_miles[i])
+				del(companiesIds[i])
+			elif(companies[i].getId() == companiesIds[i]):
+				i += 1
+			else:
+				del(c_miles[i])
+				del(companiesIds[i])
+				failure = True
 
 	newMiles = []
 	for c in companies:
@@ -135,6 +171,21 @@ def averageMilesPerCompany(i):
 
 
 	fig.clf()
+
+	failure = True
+	while(failure):
+		i = 0
+		failure = False
+		for prof in c_miles:
+			if(i == len(companies)):
+				del(c_miles[i])
+				del(companiesIds[i])
+			elif(companies[i].getId() == companiesIds[i]):
+				i += 1
+			else:
+				del(c_miles[i])
+				del(companiesIds[i])
+				failure = True
 
 	newMiles = []
 	for c in companies:

@@ -50,13 +50,13 @@ def checkCooperation():
 					if(len(i[3].getAvailableTrucks()) <  1):
 						return False
 
-				c_one = i[2] - auction.distance(districts[i[3].getLocal()], i[1])
-				c_two = j[2] - auction.distance(districts[j[3].getLocal()], j[1])
+				r_one = i[2] - auction.distance(districts[i[3].getLocal()], i[1])
+				r_two = j[2] - auction.distance(districts[j[3].getLocal()], j[1])
 
-				c_one_changed = j[2] - auction.distance(districts[i[3].getLocal()], j[1])
-				c_two_changed = i[2] - auction.distance(districts[j[3].getLocal()], i[1])
+				r_one_changed = j[2] - auction.distance(districts[i[3].getLocal()], j[1])
+				r_two_changed = i[2] - auction.distance(districts[j[3].getLocal()], i[1])
 
-				if(c_one_changed > c_one and c_two_changed > c_two):
+				if(r_one_changed > r_one and r_two_changed > r_two):
 
 					i[3].changeDelivery(i, j)
 					j[3].changeDelivery(j, i)
@@ -95,6 +95,7 @@ def step(clients, companies, verbose=True):
 	if(results[2]):
 		poolDeliveries = results[2]
 
+	generateStates(companies)
 	return results[0], results[1]
 
 def checkState(state, c, companies, timestep):
@@ -131,6 +132,25 @@ def setupWorld(ncli, ncompanies, verbose=True):
 
 
 	return clients, companies
+
+
+
+def generateStates(companies):
+
+
+	ranking = []
+
+	while(len(ranking) != len(companies)):
+		highest = 0
+		for c in companies:	
+			if(c.getProfit() > highest and not c in ranking):
+				cHighest = c
+				highest = c.getProfit()
+
+		ranking += [cHighest]
+
+	return ranking
+
 
 
 

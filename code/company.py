@@ -263,6 +263,62 @@ class Company:
         #remove the profit gained
         self.updateProfit(- old[2])
 
+        for t in self.getTrucksNotOnTheMove():
+            if(isinstance(new[0], truck.Bus) and isinstance(t, truck.Bus)):
+                t.startTransportation(new[1])
+                self.updateProfit(new[2])
+                return True
+            if(isinstance(new[0], truck.DeliveryTruck) and isinstance(t, truck.DeliveryTruck)):
+                t.startTransportation(new[1])
+                self.updateProfit(new[2])
+                return True
+                
+    def egreedyPolicy(self, state, e=0.1):
+        if(isinstance(np.argmin(self.Q[state]), np.int64)):
+            return np.random.choice([np.random.choice(self.actions), self.actions[np.argmin(self.Q[state])]], p=[e, 1-e])
+        return np.random.choice([np.random.choice(self.actions), self.actions[np.argmin(self.Q[state])]], p=[e, 1-e])
 
-        new[0].startTransportation(new[1])
-        self.updateProfit(new[2])
+    def sarsaRL(self, rankings):
+        cost = []
+
+
+        for i in range(len(rankings)):
+            cost += [i]
+
+        states = cost
+
+        state = rankings.index(self)
+
+        #0-increase, 1-decrease, 2-maintain
+        self.actions = [0, 1, 2]
+
+        self.Q = np.zeros((len(rankings), len(self.actions)))
+
+        alpha = 0.3
+
+        gamma = 0.95
+
+        normsSARSA = []
+
+        action = egreedyPolicy(state, e=0)
+
+        for i in range(500000):
+            #how do we define the nextstate
+            #world_set.step()
+            nextAction = egreedyPolicy(nextState, e=0)
+            
+            ct = cost[state]
+            
+            self.Q[state][action] = self.Q[state][action] + alpha * (ct + gamma * self.Q[nextState][nextAction] - self.Q[state][action])
+            
+            #check if state is a goal state
+            if(cost[state] == 0):
+                state = np.random.choice(states)
+                action = egreedyPolicy(state, e=0)
+            else:
+                state = nextState
+                action = nextAction
+                
+                
+            if(i%(100000-1) == 0):
+                print("100000 more reached")

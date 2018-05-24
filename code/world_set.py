@@ -110,15 +110,25 @@ def checkState(state, c, companies, timestep):
 	else:
 		return True
 
-def setupWorld(ncli, ncompanies, verbose=True):
+def setupWorld(ncli, ncompanies, verbose=True, learnQ=False):
 	clients = []
 	companies = []
 
+	beg = 0
+	if(learnQ):
+		c_learn = company.Company("COMP" + str(beg), 200, np.random.choice(list(districts.keys())), np.random.random(), True)
+		#c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), 0.5)
+		if(verbose):
+			print(c_learn.getId() + ": ", 100, " district: " + c_learn.getLocal(), " risk: ", c_learn.getRisk())
+			print
+		c_learn.buyTrucks()
+		companies += [c_learn]
+		beg += 1
 
 
 
-	for i in range(ncompanies):
-		c = company.Company("COMP" + str(i), 200, np.random.choice(list(districts.keys())), np.random.random())
+	for i in range(beg, ncompanies):
+		c = company.Company("COMP" + str(i), 200, np.random.choice(list(districts.keys())), np.random.random(), False)
 		#c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), 0.5)
 		if(verbose):
 			print(c.getId() + ": ", 100, " district: " + c.getLocal(), " risk: ", c.getRisk())
@@ -129,6 +139,10 @@ def setupWorld(ncli, ncompanies, verbose=True):
 	for i in range(ncli):
 
 		clients += [client.Client("CL" + str(i), companies)]
+
+	print("Started the learning process")
+	c_learn.sarsaRL(clients, companies)
+	print("Ended the learning process")
 
 
 	return clients, companies
@@ -153,11 +167,13 @@ def generateStates(companies):
 
 
 
+numberClients = 5 
+numberCompanies = 5
 
 if __name__ == "__main__":
 
 
-	clients, companies = setupWorld(5, 4)
+	clients, companies = setupWorld(numberClients, numberCompanies, learnQ=True)
 
 	while(1):
 		print(step(clients, companies))

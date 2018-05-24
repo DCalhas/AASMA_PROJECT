@@ -10,13 +10,14 @@ import world_set
 
 class Company:
 
-    def __init__(self, id, budget, local, risk):
+    def __init__(self, id, budget, local, risk, learning):
         self.id = id
         self.trucks = []
         self.profit = budget
         self.local = local
         self.risk = risk
         self.numberDeliveries = 0
+        self.learning = learning
 
     def getId(self):
         return self.id
@@ -278,9 +279,13 @@ class Company:
             return np.random.choice([np.random.choice(self.actions), self.actions[np.argmin(self.Q[state])]], p=[e, 1-e])
         return np.random.choice([np.random.choice(self.actions), self.actions[np.argmin(self.Q[state])]], p=[e, 1-e])
 
-    def sarsaRL(self, rankings):
+    def sarsaRL(self, clients, companies):
         cost = []
 
+        #initialize world
+
+        #generate the rankings to know the state of the company
+        rankings = world_set.generateStates(companies)
 
         for i in range(len(rankings)):
             cost += [i]
@@ -300,12 +305,21 @@ class Company:
 
         normsSARSA = []
 
-        action = egreedyPolicy(state, e=0)
+        action = self.egreedyPolicy(state, e=0)
 
         for i in range(500000):
-            #how do we define the nextstate
-            #world_set.step()
-            nextAction = egreedyPolicy(nextState, e=0)
+            #perform the action of increasing or decreasing the risk
+            world_set.step(clients, companies, verbose=False)
+            rankings = world_set.generateStates(companies)
+
+            if(not self in rankings):
+                self.updateProfit(200)
+                self.buyTrucks()
+                companies += [self]
+
+            nextState = rankings.index(self)
+
+            nextAction = self.egreedyPolicy(nextState, e=0)
             
             ct = cost[state]
             
@@ -314,11 +328,15 @@ class Company:
             #check if state is a goal state
             if(cost[state] == 0):
                 state = np.random.choice(states)
-                action = egreedyPolicy(state, e=0)
+                action = self.egreedyPolicy(state, e=0)
             else:
                 state = nextState
                 action = nextAction
+
+            print("New norm of the Q function: ", np.linalg.norm(self.Q))
                 
                 
             if(i%(100000-1) == 0):
                 print("100000 more reached")
+
+

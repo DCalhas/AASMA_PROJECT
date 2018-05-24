@@ -116,7 +116,7 @@ def setupWorld(ncli, ncompanies, verbose=True, learnQ=False):
 
 	beg = 0
 	if(learnQ):
-		c_learn = company.Company("COMP" + str(beg), 200, np.random.choice(list(districts.keys())), np.random.random(), True)
+		c_learn = company.Company("COMP" + str(beg), 200, np.random.choice(list(districts.keys())), 0.5, True)
 		#c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), 0.5)
 		if(verbose):
 			print(c_learn.getId() + ": ", 100, " district: " + c_learn.getLocal(), " risk: ", c_learn.getRisk())
@@ -128,7 +128,7 @@ def setupWorld(ncli, ncompanies, verbose=True, learnQ=False):
 
 
 	for i in range(beg, ncompanies):
-		c = company.Company("COMP" + str(i), 200, np.random.choice(list(districts.keys())), np.random.random(), False)
+		c = company.Company("COMP" + str(i), 200, np.random.choice(list(districts.keys())), 0.5, False)
 		#c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), 0.5)
 		if(verbose):
 			print(c.getId() + ": ", 100, " district: " + c.getLocal(), " risk: ", c.getRisk())

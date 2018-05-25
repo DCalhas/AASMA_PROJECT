@@ -114,21 +114,24 @@ def setupWorld(ncli, ncompanies, verbose=True, learnQ=False):
 	clients = []
 	companies = []
 
-	beg = 0
+	beg = -1
 	if(learnQ):
-		c_learn = company.Company("COMP" + str(beg), 200, np.random.choice(list(districts.keys())), 0.5, True)
+		c_learn = company.Company("COMP" + str(beg), 200, "Lisboa", 0.5, True)
 		#c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), 0.5)
 		if(verbose):
 			print(c_learn.getId() + ": ", 100, " district: " + c_learn.getLocal(), " risk: ", c_learn.getRisk())
 			print
 		c_learn.buyTrucks()
 		companies += [c_learn]
-		beg += 1
+		print("Started the learning process")
+		c_learn.sarsaRL()
+		print("Ended the learning process")
+		beg = 1
 
 
 
 	for i in range(beg, ncompanies):
-		c = company.Company("COMP" + str(i), 200, np.random.choice(list(districts.keys())), 0.5, False)
+		c = company.Company("COMP" + str(i), 200, "Lisboa", 0.5, False)
 		#c = company.Company("COMP" + str(i), 100, np.random.choice(list(districts.keys())), 0.5)
 		if(verbose):
 			print(c.getId() + ": ", 100, " district: " + c.getLocal(), " risk: ", c.getRisk())
@@ -139,10 +142,6 @@ def setupWorld(ncli, ncompanies, verbose=True, learnQ=False):
 	for i in range(ncli):
 
 		clients += [client.Client("CL" + str(i), companies)]
-
-	print("Started the learning process")
-	c_learn.sarsaRL(clients, companies)
-	print("Ended the learning process")
 
 
 	return clients, companies
@@ -176,6 +175,9 @@ if __name__ == "__main__":
 	clients, companies = setupWorld(numberClients, numberCompanies, learnQ=True)
 
 	while(1):
+		for c in companies:
+			if(c.getLearning()):
+				c.updateRiskAccordingToQ(companies)
 		print(step(clients, companies))
 		for c in companies:
 			print("Company " + c.getId() + " : " , c.getProfit(), "$$ tenho: ", len(c.getTrucks()), " trucks")

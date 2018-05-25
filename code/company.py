@@ -19,6 +19,38 @@ class Company:
         self.numberDeliveries = 0
         self.learning = learning
 
+    def getLearning(self):
+        return self.learning
+
+
+    def updateRiskAccordingToQ(self, companies):
+        rankings = world_set.generateStates(companies)
+
+        if(not self in rankings):
+            return
+        state = rankings.index(self)
+
+
+
+
+        action = self.actions[np.argmin(self.Q[state])]
+        if(action == 1):
+            self.setRisk(0.1)
+            print("Learning company updated the risk to: ", self.getRisk())
+        elif(action == 2):
+            self.setRisk(0.25)
+            print("Learning company updated the risk to: ", self.getRisk())
+        elif(action == 3):
+            self.setRisk(0.5)
+            print("Learning company updated the risk to: ", self.getRisk())
+        elif(action == 4):
+            self.setRisk(0.75)
+            print("Learning company updated the risk to: ", self.getRisk())
+        elif(action == 5):
+            self.setRisk(0.9)
+            print("Learning company updated the risk to: ", self.getRisk())
+
+
     def getId(self):
         return self.id
 
@@ -48,6 +80,9 @@ class Company:
 
     def getRisk(self):
         return self.risk
+
+    def setRisk(self, risk):
+        self.risk = risk
 
     def getProfit(self):
         return self.profit
@@ -279,10 +314,14 @@ class Company:
             return np.random.choice([np.random.choice(self.actions), self.actions[np.argmin(self.Q[state])]], p=[e, 1-e])
         return np.random.choice([np.random.choice(self.actions), self.actions[np.argmin(self.Q[state])]], p=[e, 1-e])
 
-    def sarsaRL(self, clients, companies):
+    def sarsaRL(self):
         cost = []
 
         #initialize world
+        clients, companies = world_set.setupWorld(world_set.numberClients, world_set.numberCompanies - 1, learnQ=False)
+
+        companies += [self]
+
 
         #generate the rankings to know the state of the company
         rankings = world_set.generateStates(companies)
@@ -295,7 +334,7 @@ class Company:
         state = rankings.index(self)
 
         #0-increase, 1-decrease, 2-maintain
-        self.actions = [0, 1, 2]
+        self.actions = [0, 1, 2, 3, 4, 5]
 
         self.Q = np.zeros((len(rankings), len(self.actions)))
 
@@ -307,8 +346,20 @@ class Company:
 
         action = self.egreedyPolicy(state, e=0)
 
-        for i in range(500000):
+        for i in range(400):
             #perform the action of increasing or decreasing the risk
+            if(action == 1):
+                self.setRisk(0.1)
+            elif(action == 2):
+                self.setRisk(0.25)
+            elif(action == 3):
+                self.setRisk(0.5)
+            elif(action == 4):
+                self.setRisk(0.75)
+            elif(action == 5):
+                self.setRisk(0.9)
+
+
             world_set.step(clients, companies, verbose=False)
             rankings = world_set.generateStates(companies)
 
@@ -316,6 +367,7 @@ class Company:
                 self.updateProfit(200)
                 self.buyTrucks()
                 companies += [self]
+                rankings = world_set.generateStates(companies)
 
             nextState = rankings.index(self)
 
@@ -339,4 +391,8 @@ class Company:
             if(i%(100000-1) == 0):
                 print("100000 more reached")
 
-
+        self.updateProfit(200)
+        self.trucks = []
+        self.numberDeliveries = 0
+        self.risk = 0.5
+        self.buyTrucks()

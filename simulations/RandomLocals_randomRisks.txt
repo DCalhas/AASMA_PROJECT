@@ -1,0 +1,5 @@
+COMP0:  100  district: Guarda  risk:  0.7173349130515382
+COMP1:  100  district: Beja  risk:  0.800943566378794
+COMP2:  100  district: Guarda  risk:  0.45515921439329454
+COMP3:  100  district: Braganca  risk:  0.08994342434469382
+COMP4:  100  district: Leiria  risk:  0.1667566029357792

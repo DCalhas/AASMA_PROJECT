@@ -1,0 +1,5 @@
+COMP0:  100  district: Lisboa  risk:  0.5909225854068391
+COMP1:  100  district: Lisboa  risk:  0.11859542365740039
+COMP2:  100  district: Lisboa  risk:  0.9948878304771077
+COMP3:  100  district: Lisboa  risk:  0.35271212740523306
+COMP4:  100  district: Lisboa  risk:  0.7619136746123895

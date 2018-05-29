@@ -34,19 +34,19 @@ class Company:
 
 
         action = self.actions[np.argmin(self.Q[state])]
-        if(action == 1):
+        if(action == 0):
             self.setRisk(0.1)
             print("Learning company updated the risk to: ", self.getRisk())
-        elif(action == 2):
+        elif(action == 1):
             self.setRisk(0.25)
             print("Learning company updated the risk to: ", self.getRisk())
-        elif(action == 3):
+        elif(action == 2):
             self.setRisk(0.5)
             print("Learning company updated the risk to: ", self.getRisk())
-        elif(action == 4):
+        elif(action == 3):
             self.setRisk(0.75)
             print("Learning company updated the risk to: ", self.getRisk())
-        elif(action == 5):
+        elif(action == 4):
             self.setRisk(0.9)
             print("Learning company updated the risk to: ", self.getRisk())
 
@@ -69,8 +69,12 @@ class Company:
     def addTruck(self, truck):
         self.trucks.append(truck)
 
+
     def delTruck(self, truck):
         self.trucks.remove(truck)
+
+    def setTrucks(self, l):
+        self.trucks = l
 
     def getTrucks(self):
         return self.trucks
@@ -83,6 +87,9 @@ class Company:
 
     def setRisk(self, risk):
         self.risk = risk
+
+    def setProfit(self, p):
+        self.profit = p
 
     def getProfit(self):
         return self.profit
@@ -123,6 +130,25 @@ class Company:
         bid = ((pricePeople*goods[0] + priceGood*goods[1]) * (dist)) * (1+self.risk)
         if(bid>base):
             return bid
+
+
+    def valueAssets(self):
+        value = self.getProfit()
+
+        for i in self.getTrucks():
+            if(isinstance(i, truck.FiftyBus)):
+                value += 50
+            if(isinstance(i, truck.SeventyBus)):
+                value += 70
+            if(isinstance(i, truck.FiftyTruck)):
+                value += 25
+            if(isinstance(i, truck.SeventyTruck)):
+                value += 50
+
+        return value
+
+    def getActivePlusBalance(self):
+        return self.valueAssets() + self.getProfit()
 
 
     def getUtility(self, distance):
@@ -315,6 +341,7 @@ class Company:
         return np.random.choice([np.random.choice(self.actions), self.actions[np.argmin(self.Q[state])]], p=[e, 1-e])
 
     def sarsaRL(self):
+        import gc
         cost = []
 
         #initialize world
@@ -325,73 +352,94 @@ class Company:
 
         #generate the rankings to know the state of the company
         rankings = world_set.generateStates(companies)
+        
+        #0-increase, 1-decrease, 2-maintain
+        self.actions = [0, 1, 2, 3, 4]
+
 
         for i in range(len(rankings)):
-            cost += [i]
+            cost += [[]]
+            for j in self.actions:
+                cost[i] += [j/len(self.actions)]
+            print(cost[i])
 
-        states = cost
+        states = []
+        for i in range(len(rankings)):
+            states += [i]
 
         state = rankings.index(self)
 
-        #0-increase, 1-decrease, 2-maintain
-        self.actions = [0, 1, 2, 3, 4, 5]
+    
 
-        self.Q = np.zeros((len(rankings), len(self.actions)))
+        self.Q = np.zeros((len(states), len(self.actions)))
 
         alpha = 0.3
 
         gamma = 0.95
 
-        normsSARSA = []
+        action = self.egreedyPolicy(state, e=0.5)
 
-        action = self.egreedyPolicy(state, e=0)
+        for i in range(1, 1000):
+            if(i%(100-1) == 0):
+                print("RESETING WORLD")
+                for c in companies:
+                    c.setTrucks([])
+                    c.setProfit(200)
+                    c.buyTrucks()
 
-        for i in range(400):
+            gc.collect()
             #perform the action of increasing or decreasing the risk
-            if(action == 1):
+            if(action == 0):
                 self.setRisk(0.1)
-            elif(action == 2):
+            elif(action == 1):
                 self.setRisk(0.25)
-            elif(action == 3):
+            elif(action == 2):
                 self.setRisk(0.5)
-            elif(action == 4):
+            elif(action == 3):
                 self.setRisk(0.75)
-            elif(action == 5):
+            elif(action == 4):
                 self.setRisk(0.9)
 
+            for c in companies:
+                if(c.getState() == "broken" or c.getState() == "noTrucks"):
+                    print("RESETING COMPANY ", c.getId())
+                    c.setTrucks([])
+                    c.setProfit(200)
+                    c.buyTrucks()
 
             world_set.step(clients, companies, verbose=False)
-            rankings = world_set.generateStates(companies)
 
+            rankings = world_set.generateStates(companies)
+            
             if(not self in rankings):
-                self.updateProfit(200)
+                self.setProfit(200)
                 self.buyTrucks()
-                companies += [self]
+                for c in companies:
+                    c.setTrucks([])
+                    c.setProfit(200)
+                    c.buyTrucks()
+
                 rankings = world_set.generateStates(companies)
+
 
             nextState = rankings.index(self)
 
-            nextAction = self.egreedyPolicy(nextState, e=0)
+            nextAction = self.egreedyPolicy(nextState, e=1)
             
-            ct = cost[state]
-            
+            ct = cost[state][action]
+
             self.Q[state][action] = self.Q[state][action] + alpha * (ct + gamma * self.Q[nextState][nextAction] - self.Q[state][action])
             
-            #check if state is a goal state
-            if(cost[state] == 0):
-                state = np.random.choice(states)
-                action = self.egreedyPolicy(state, e=0)
-            else:
-                state = nextState
-                action = nextAction
+            state = nextState
+            action = nextAction
 
-            print("New norm of the Q function: ", np.linalg.norm(self.Q))
-                
-                
-            if(i%(100000-1) == 0):
-                print("100000 more reached")
+            #print("New norm of the Q function: ", np.linalg.norm(self.Q))
+        
+        for r in self.Q:
+            print(r)
+        gc.collect()
 
-        self.updateProfit(200)
+        self.setProfit(200)
         self.trucks = []
         self.numberDeliveries = 0
         self.risk = 0.5

@@ -9,7 +9,7 @@ import company
 
 fig = plt.figure()
 
-clients, companies = world_set.setupWorld(1, 10, verbose=True)
+clients, companies = world_set.setupWorld(1, 5, verbose=True, learnQ=True)
 
 c_profits = []
 
@@ -93,6 +93,8 @@ def profit(i):
            ncol=len(companies), mode="expand", borderaxespad=0.)
 
 	world_set.step(clients, companies, verbose=False)
+
+
 
 ####################################################################################################
 ####################################################################################################
@@ -219,6 +221,66 @@ def averageMilesPerCompany(i):
 
 	world_set.step(clients, companies, verbose=False)
 
+####################################################################################################
+####################################################################################################
+####################################################################################################
+#									ACTIVES PLUS BALANCE PER COMPANY
+####################################################################################################
+####################################################################################################
+####################################################################################################
+
+
+def balancePlusActives(i):
+
+	global c_profits
+
+
+	fig.clf()
+
+	failure = True
+	while(failure):
+		i = 0
+		failure = False
+		for prof in c_profits:
+			if(i == len(companies)):
+				del(c_profits[i])
+				del(companiesIds[i])
+			elif(companies[i].getId() == companiesIds[i]):
+				i += 1
+			else:
+				del(c_profits[i])
+				del(companiesIds[i])
+				failure = True
+
+
+	newProfits = []
+	for c in companies:
+		newProfits += [[c.getActivePlusBalance()]]
+
+	previousProfits = []
+
+	#previousProfits
+	for p in c_profits:
+		if(len(p)):
+			previousProfits += [p[-1]]
+
+
+	if(compareWithPreviousIteration(previousProfits, newProfits) or not len(c_profits[0])):
+		#add to c_profits new profits
+		for c in companies:
+			c_profits[companies.index(c)] += [newProfits[companies.index(c)]]
+	
+	for c in companies:
+		plt.plot(c_profits[companies.index(c)], label=c.getId()+" "+c.getLocal())
+
+	plt.title("Balance of companies")
+	plt.ylabel("Balance amount (euros)")
+	plt.xlabel("time step")
+
+	plt.legend(bbox_to_anchor=(0., 1.05, 1., .102), loc=3,
+           ncol=len(companies), mode="expand", borderaxespad=0.)
+
+	world_set.step(clients, companies, verbose=False)
 
 
 ani = animation.FuncAnimation(fig, profit, interval=1)

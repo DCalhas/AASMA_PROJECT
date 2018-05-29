@@ -164,9 +164,25 @@ def generateStates(companies):
 
 	return ranking
 
+def generateStatesByActives(companies):
 
 
-numberClients = 5 
+	ranking = []
+
+	while(len(ranking) != len(companies)):
+		highest = 0
+		for c in companies:	
+			if(c.getActivePlusBalance() > highest and not c in ranking):
+				cHighest = c
+				highest = c.getActivePlusBalance()
+
+		ranking += [cHighest]
+
+	return ranking
+
+
+
+numberClients = 1
 numberCompanies = 5
 
 if __name__ == "__main__":

@@ -3,6 +3,7 @@ import math
 import company
 import world_set
 import numpy as np
+import time
 
 policyAuction = [1,2,3] #1- pessoas 2-bens 3-both
 
@@ -12,10 +13,13 @@ def distance(x, y):
 
 def auction(companies, auctioneer):
 
-	start = world_set.districts[np.random.choice(list(world_set.districts.keys()))]
-	finish = world_set.districts[np.random.choice(list(world_set.districts.keys()))]
+	auxS = np.random.choice(list(world_set.districts.keys()))
+	start = world_set.districts[auxS]
+	auxF = np.random.choice(list(world_set.districts.keys()))
+	finish = world_set.districts[auxF]
 	while (finish == start):
-		finish = world_set.districts[np.random.choice(list(world_set.districts.keys()))]
+		auxF = np.random.choice(list(world_set.districts.keys()))
+		finish = world_set.districts[auxF]
 	policy = np.random.choice(policyAuction)
 
 	if(policy == 1):
@@ -28,18 +32,20 @@ def auction(companies, auctioneer):
 	#print(goods)
 	baseAuction = auctioneer.getUtility(goods, start, finish)
 	details = auctioneer.makeOffer(start, finish, goods, baseAuction)
+
+
 	bids = []
 	for c in companies:
 		offer = c.evaluateOffer(details)
-
 		if(offer):
 			bids += [(offer, c)]
+
 
 	if(len(bids) == 0):
 		return None, None, False
 
 	winnerBid, company = auctioneer.chooseOffer(bids)
-	
+
 
 	pool = company.delivery(winnerBid, finish, goods)
 

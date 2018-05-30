@@ -42,7 +42,7 @@ class Client:
 
 		#if(verbose):
 			#print("Company chosen was " + companyChosen.getId(), " with bid chosen ", bidChosen, " with ", self.countPurchases, " made, from client " + self.getId())
-		
+
 		self.countPurchases += 1
 
 		return bidChosen, companyChosen
@@ -53,7 +53,7 @@ class Client:
 	def getUtility(self, good, start, finish):
 		#why does the distance matter to the client??
 		distance = auction.distance(start, finish)
-		moodPeople = np.random.uniform(1.2, 1.7)
-		moodGoods = np.random.uniform(0.8, 1.3)
+		moodPeople = np.random.uniform(1.5, 2.5)
+		moodGoods = np.random.uniform(1.5, 2.2)
 
 		return (moodPeople*good[0] + moodGoods*good[1]) * (distance)

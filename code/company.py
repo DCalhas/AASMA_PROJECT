@@ -18,6 +18,8 @@ class Company:
         self.risk = risk
         self.numberDeliveries = 0
         self.learning = learning
+        self.Cooperation = 0
+        self.NoCooperation = 0
 
     def getLearning(self):
         return self.learning
@@ -128,7 +130,7 @@ class Company:
         pricePeople =  np.random.uniform(0.6, 1.2)
 
         bid = ((pricePeople*goods[0] + priceGood*goods[1]) * (dist)) * (1+self.risk)
-        if(bid>base):
+        if(bid<base):
             return bid
 
 
@@ -248,7 +250,7 @@ class Company:
 
 
     def updateTrucksSteps(self):
-        if(len(world_set.poolDeliveries)>=10):
+        if(len(world_set.poolDeliveries)>=20):
             for offer in world_set.poolDeliveries:
                 if offer[0] in self.getTrucks():
                     offer[0].startTransportation(offer[1])
@@ -334,7 +336,7 @@ class Company:
                 t.startTransportation(new[1])
                 self.updateProfit(new[2])
                 return True
-                
+
     def egreedyPolicy(self, state, e=0.1):
         if(isinstance(np.argmin(self.Q[state]), np.int64)):
             return np.random.choice([np.random.choice(self.actions), self.actions[np.argmin(self.Q[state])]], p=[e, 1-e])
@@ -352,7 +354,7 @@ class Company:
 
         #generate the rankings to know the state of the company
         rankings = world_set.generateStates(companies)
-        
+
         #0-increase, 1-decrease, 2-maintain
         self.actions = [0, 1, 2, 3, 4]
 
@@ -369,7 +371,7 @@ class Company:
 
         state = rankings.index(self)
 
-    
+
 
         self.Q = np.zeros((len(states), len(self.actions)))
 
@@ -410,7 +412,7 @@ class Company:
             world_set.step(clients, companies, verbose=False)
 
             rankings = world_set.generateStates(companies)
-            
+
             if(not self in rankings):
                 self.setProfit(200)
                 self.buyTrucks()
@@ -425,16 +427,16 @@ class Company:
             nextState = rankings.index(self)
 
             nextAction = self.egreedyPolicy(nextState, e=1)
-            
+
             ct = cost[state][action]
 
             self.Q[state][action] = self.Q[state][action] + alpha * (ct + gamma * self.Q[nextState][nextAction] - self.Q[state][action])
-            
+
             state = nextState
             action = nextAction
 
             #print("New norm of the Q function: ", np.linalg.norm(self.Q))
-        
+
         for r in self.Q:
             print(r)
         gc.collect()

@@ -1,0 +1,31 @@
+COMP0:  100  district: Guarda  risk:  0.8642045714608476
+COMP1:  100  district: Porto  risk:  0.5285774424583757
+COMP2:  100  district: Lisboa  risk:  0.6929609501773645
+COMP3:  100  district: Evora  risk:  0.39718361026851867
+COMP4:  100  district: Viseu  risk:  0.9861425710569173
+COMP5:  100  district: Viana do Castelo  risk:  0.38324435840101656
+COMP6:  100  district: Leiria  risk:  0.10051638210062641
+COMP7:  100  district: Setubal  risk:  0.033650489030619624
+COMP8:  100  district: Coimbra  risk:  0.26449514950817965
+COMP9:  100  district: Portalegre  risk:  0.9824756287389771
+COMP10:  100  district: Guarda  risk:  0.018257336454913786
+COMP11:  100  district: Viseu  risk:  0.8229118608432648
+COMP12:  100  district: Viseu  risk:  0.3516388841440853
+COMP13:  100  district: Coimbra  risk:  0.044764828419354585
+COMP14:  100  district: Evora  risk:  0.4099593761767414
+COMP15:  100  district: Vila Real  risk:  0.027017045152457952
+COMP16:  100  district: Evora  risk:  0.20390606100383757
+COMP17:  100  district: Porto  risk:  0.6004233606033366
+COMP18:  100  district: Porto  risk:  0.503457872093742
+COMP19:  100  district: Castelo Branco  risk:  0.11880060957200622
+COMP10 and COMP5 cooperated between each other by swaping offers
+COMP2 and COMP15 cooperated between each other by swaping offers
+COMP2 and COMP15 cooperated between each other by swaping offers
+COMP2 and COMP19 cooperated between each other by swaping offers
+COMP10 and COMP14 cooperated between each other by swaping offers
+COMP17 entered bankrupcy at timestep  52  it was located at Porto with  risk of  0.6004233606033366
+COMP18 entered bankrupcy at timestep  58  it was located at Porto with  risk of  0.503457872093742
+COMP13 entered bankrupcy at timestep  61  it was located at Coimbra with  risk of  0.044764828419354585
+COMP6 entered bankrupcy at timestep  67  it was located at Leiria with  risk of  0.10051638210062641
+COMP9 entered bankrupcy at timestep  91  it was located at Portalegre with  risk of  0.9824756287389771
+COMP11 entered bankrupcy at timestep  95  it was located at Viseu with  risk of  0.8229118608432648

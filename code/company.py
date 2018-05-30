@@ -379,7 +379,7 @@ class Company:
 
         action = self.egreedyPolicy(state, e=0.5)
 
-        for i in range(1, 1000):
+        for i in range(1, 2000):
             if(i%(100-1) == 0):
                 print("RESETING WORLD")
                 for c in companies:

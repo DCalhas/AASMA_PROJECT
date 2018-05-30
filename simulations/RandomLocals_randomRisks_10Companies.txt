@@ -1,0 +1,10 @@
+COMP0:  100  district: Santarem  risk:  0.4731004129781088
+COMP1:  100  district: Leiria  risk:  0.9752615628887926
+COMP2:  100  district: Leiria  risk:  0.6746270959875724
+COMP3:  100  district: Santarem  risk:  0.39527655308160403
+COMP4:  100  district: Guarda  risk:  0.9167925658137115
+COMP5:  100  district: Santarem  risk:  0.7003608219860721
+COMP6:  100  district: Braganca  risk:  0.8288062076651886
+COMP7:  100  district: Setubal  risk:  0.24305837964068655
+COMP8:  100  district: Viseu  risk:  0.8917106581392024
+COMP9:  100  district: Setubal  risk:  0.46801885141585264

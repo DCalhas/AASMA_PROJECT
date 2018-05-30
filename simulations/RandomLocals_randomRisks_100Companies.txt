@@ -1,0 +1,186 @@
+COMP0:  100  district: Coimbra  risk:  0.027835317385041858
+COMP1:  100  district: Braganca  risk:  0.7827749009067029
+COMP2:  100  district: Viana do Castelo  risk:  0.48792149000487195
+COMP3:  100  district: Lisboa  risk:  0.6190403561991412
+COMP4:  100  district: Setubal  risk:  0.47172758194713216
+COMP5:  100  district: Portalegre  risk:  0.4732713348985923
+COMP6:  100  district: Lisboa  risk:  0.5626271791045125
+COMP7:  100  district: Aveiro  risk:  0.5291485742218455
+COMP8:  100  district: Castelo Branco  risk:  0.34328922305666565
+COMP9:  100  district: Aveiro  risk:  0.11529828744659543
+COMP10:  100  district: Braga  risk:  0.7547339656657246
+COMP11:  100  district: Leiria  risk:  0.9623875847533823
+COMP12:  100  district: Viseu  risk:  0.5234033640214185
+COMP13:  100  district: Portalegre  risk:  0.6940041399996364
+COMP14:  100  district: Braga  risk:  0.15374299046027295
+COMP15:  100  district: Guarda  risk:  0.5813175125222854
+COMP16:  100  district: Castelo Branco  risk:  0.1239354393697355
+COMP17:  100  district: Viseu  risk:  0.5008575593258616
+COMP18:  100  district: Viana do Castelo  risk:  0.6498337238922376
+COMP19:  100  district: Aveiro  risk:  0.5252074682177515
+COMP20:  100  district: Porto  risk:  0.5454657828535742
+COMP21:  100  district: Vila Real  risk:  0.890641118395018
+COMP22:  100  district: Vila Real  risk:  0.5690831024035512
+COMP23:  100  district: Porto  risk:  0.34760352806190975
+COMP24:  100  district: Porto  risk:  0.456424568247659
+COMP25:  100  district: Viana do Castelo  risk:  0.5820142702743798
+COMP26:  100  district: Portalegre  risk:  0.49626869433934606
+COMP27:  100  district: Beja  risk:  0.24974365082909222
+COMP28:  100  district: Evora  risk:  0.26700695398868735
+COMP29:  100  district: Evora  risk:  0.5906958090035102
+COMP30:  100  district: Viana do Castelo  risk:  0.7703803094007725
+COMP31:  100  district: Viana do Castelo  risk:  0.9818698861336033
+COMP32:  100  district: Santarem  risk:  0.6200163138437363
+COMP33:  100  district: Viseu  risk:  0.5677233508969656
+COMP34:  100  district: Porto  risk:  0.2924879488821417
+COMP35:  100  district: Santarem  risk:  0.8847353842464639
+COMP36:  100  district: Faro  risk:  0.49709046201990914
+COMP37:  100  district: Aveiro  risk:  0.2873626897064462
+COMP38:  100  district: Guarda  risk:  0.20117196250272706
+COMP39:  100  district: Castelo Branco  risk:  0.9787326714496516
+COMP40:  100  district: Braganca  risk:  0.8061976621545884
+COMP41:  100  district: Coimbra  risk:  0.7042463401987753
+COMP42:  100  district: Porto  risk:  0.32814847601447217
+COMP43:  100  district: Coimbra  risk:  0.2874955961239839
+COMP44:  100  district: Vila Real  risk:  0.7533907194559006
+COMP45:  100  district: Evora  risk:  0.955557000530949
+COMP46:  100  district: Braganca  risk:  0.07917720722841193
+COMP47:  100  district: Faro  risk:  0.7863468036693158
+COMP48:  100  district: Lisboa  risk:  0.5194673655604589
+COMP49:  100  district: Beja  risk:  0.48347748667939516
+COMP50:  100  district: Lisboa  risk:  0.14421011055907418
+COMP51:  100  district: Santarem  risk:  0.3144660645796675
+COMP52:  100  district: Viana do Castelo  risk:  0.8583623556390204
+COMP53:  100  district: Castelo Branco  risk:  0.24531652765899326
+COMP54:  100  district: Santarem  risk:  0.6577254776330765
+COMP55:  100  district: Guarda  risk:  0.7900677170130842
+COMP56:  100  district: Braga  risk:  0.9746052836882438
+COMP57:  100  district: Aveiro  risk:  0.08755177046603457
+COMP58:  100  district: Portalegre  risk:  0.4774666513033369
+COMP59:  100  district: Portalegre  risk:  0.3750321124634405
+COMP60:  100  district: Lisboa  risk:  0.4898993269793681
+COMP61:  100  district: Viseu  risk:  0.40226392748950457
+COMP62:  100  district: Vila Real  risk:  0.8436860940007266
+COMP63:  100  district: Braganca  risk:  0.6670955386940204
+COMP64:  100  district: Aveiro  risk:  0.039535893452574467
+COMP65:  100  district: Porto  risk:  0.6474772322471244
+COMP66:  100  district: Viseu  risk:  0.309220693132749
+COMP67:  100  district: Santarem  risk:  0.43201964001932447
+COMP68:  100  district: Viseu  risk:  0.9846298718353965
+COMP69:  100  district: Coimbra  risk:  0.7572954517003876
+COMP70:  100  district: Leiria  risk:  0.7349544688675802
+COMP71:  100  district: Lisboa  risk:  0.8948610773178771
+COMP72:  100  district: Braga  risk:  0.7947209659742507
+COMP73:  100  district: Santarem  risk:  0.6963819625294769
+COMP74:  100  district: Porto  risk:  0.0338403832916947
+COMP75:  100  district: Evora  risk:  0.2813168536179682
+COMP76:  100  district: Aveiro  risk:  0.9104301237930853
+COMP77:  100  district: Lisboa  risk:  0.07608693063610616
+COMP78:  100  district: Faro  risk:  0.9139637065592333
+COMP79:  100  district: Setubal  risk:  0.940761280154387
+COMP80:  100  district: Setubal  risk:  0.48225342470552734
+COMP81:  100  district: Viseu  risk:  0.018563538493673204
+COMP82:  100  district: Lisboa  risk:  0.914333011238222
+COMP83:  100  district: Portalegre  risk:  0.652917744239439
+COMP84:  100  district: Viana do Castelo  risk:  0.46314559578507963
+COMP85:  100  district: Portalegre  risk:  0.4745814463501943
+COMP86:  100  district: Vila Real  risk:  0.7308332821666433
+COMP87:  100  district: Evora  risk:  0.7502143060372725
+COMP88:  100  district: Viana do Castelo  risk:  0.6947369780149019
+COMP89:  100  district: Guarda  risk:  0.905115254955655
+COMP90:  100  district: Vila Real  risk:  0.7167713369510844
+COMP91:  100  district: Evora  risk:  0.5132546166477394
+COMP92:  100  district: Faro  risk:  0.6603915338432078
+COMP93:  100  district: Coimbra  risk:  0.33887218961819854
+COMP94:  100  district: Braga  risk:  0.39210166814525316
+COMP95:  100  district: Lisboa  risk:  0.5289077032047387
+COMP96:  100  district: Beja  risk:  0.2731484476742144
+COMP97:  100  district: Beja  risk:  0.25567781379968724
+COMP98:  100  district: Braga  risk:  0.9382873505108408
+COMP99:  100  district: Braga  risk:  0.23610730641292055
+COMP57 and COMP16 cooperated between each other by swaping offers
+COMP26 and COMP98 cooperated between each other by swaping offers
+COMP14 and COMP43 cooperated between each other by swaping offers
+COMP40 entered bankrupcy at timestep  43  it was located at Braganca with  risk of  0.8061976621545884
+COMP9 entered bankrupcy at timestep  44  it was located at Aveiro with  risk of  0.11529828744659543
+COMP21 entered bankrupcy at timestep  48  it was located at Vila Real with  risk of  0.890641118395018
+COMP70 entered bankrupcy at timestep  49  it was located at Leiria with  risk of  0.7349544688675802
+COMP41 entered bankrupcy at timestep  51  it was located at Coimbra with  risk of  0.7042463401987753
+COMP84 entered bankrupcy at timestep  51  it was located at Viana do Castelo with  risk of  0.46314559578507963
+COMP35 entered bankrupcy at timestep  52  it was located at Santarem with  risk of  0.8847353842464639
+COMP7 entered bankrupcy at timestep  54  it was located at Aveiro with  risk of  0.5291485742218455
+COMP37 entered bankrupcy at timestep  54  it was located at Aveiro with  risk of  0.2873626897064462
+COMP93 entered bankrupcy at timestep  54  it was located at Coimbra with  risk of  0.33887218961819854
+COMP91 entered bankrupcy at timestep  56  it was located at Evora with  risk of  0.5132546166477394
+COMP30 entered bankrupcy at timestep  57  it was located at Viana do Castelo with  risk of  0.7703803094007725
+COMP25 entered bankrupcy at timestep  58  it was located at Viana do Castelo with  risk of  0.5820142702743798
+COMP32 entered bankrupcy at timestep  58  it was located at Santarem with  risk of  0.6200163138437363
+COMP78 entered bankrupcy at timestep  58  it was located at Faro with  risk of  0.9139637065592333
+COMP56 entered bankrupcy at timestep  59  it was located at Braga with  risk of  0.9746052836882438
+COMP71 entered bankrupcy at timestep  59  it was located at Lisboa with  risk of  0.8948610773178771
+COMP23 entered bankrupcy at timestep  60  it was located at Porto with  risk of  0.34760352806190975
+COMP46 entered bankrupcy at timestep  61  it was located at Braganca with  risk of  0.07917720722841193
+COMP33 entered bankrupcy at timestep  62  it was located at Viseu with  risk of  0.5677233508969656
+COMP82 entered bankrupcy at timestep  63  it was located at Lisboa with  risk of  0.914333011238222
+COMP90 entered bankrupcy at timestep  64  it was located at Vila Real with  risk of  0.7167713369510844
+COMP2 entered bankrupcy at timestep  65  it was located at Viana do Castelo with  risk of  0.48792149000487195
+COMP8 entered bankrupcy at timestep  65  it was located at Castelo Branco with  risk of  0.34328922305666565
+COMP44 entered bankrupcy at timestep  65  it was located at Vila Real with  risk of  0.7533907194559006
+COMP34 entered bankrupcy at timestep  66  it was located at Porto with  risk of  0.2924879488821417
+COMP49 entered bankrupcy at timestep  66  it was located at Beja with  risk of  0.48347748667939516
+COMP24 entered bankrupcy at timestep  67  it was located at Porto with  risk of  0.456424568247659
+COMP52 entered bankrupcy at timestep  67  it was located at Viana do Castelo with  risk of  0.8583623556390204
+COMP88 entered bankrupcy at timestep  67  it was located at Viana do Castelo with  risk of  0.6947369780149019
+COMP87 entered bankrupcy at timestep  68  it was located at Evora with  risk of  0.7502143060372725
+COMP1 entered bankrupcy at timestep  69  it was located at Braganca with  risk of  0.7827749009067029
+COMP67 entered bankrupcy at timestep  69  it was located at Santarem with  risk of  0.43201964001932447
+COMP6 entered bankrupcy at timestep  71  it was located at Lisboa with  risk of  0.5626271791045125
+COMP47 entered bankrupcy at timestep  72  it was located at Faro with  risk of  0.7863468036693158
+COMP17 entered bankrupcy at timestep  73  it was located at Viseu with  risk of  0.5008575593258616
+COMP99 entered bankrupcy at timestep  73  it was located at Braga with  risk of  0.23610730641292055
+COMP53 entered bankrupcy at timestep  74  it was located at Castelo Branco with  risk of  0.24531652765899326
+COMP62 entered bankrupcy at timestep  74  it was located at Vila Real with  risk of  0.8436860940007266
+COMP11 entered bankrupcy at timestep  76  it was located at Leiria with  risk of  0.9623875847533823
+COMP16 and COMP97 cooperated between each other by swaping offers
+COMP31 entered bankrupcy at timestep  77  it was located at Viana do Castelo with  risk of  0.9818698861336033
+COMP54 entered bankrupcy at timestep  77  it was located at Santarem with  risk of  0.6577254776330765
+COMP64 entered bankrupcy at timestep  78  it was located at Aveiro with  risk of  0.039535893452574467
+COMP75 entered bankrupcy at timestep  79  it was located at Evora with  risk of  0.2813168536179682
+COMP27 entered bankrupcy at timestep  83  it was located at Beja with  risk of  0.24974365082909222
+COMP59 entered bankrupcy at timestep  83  it was located at Portalegre with  risk of  0.3750321124634405
+COMP38 entered bankrupcy at timestep  86  it was located at Guarda with  risk of  0.20117196250272706
+COMP45 entered bankrupcy at timestep  86  it was located at Evora with  risk of  0.955557000530949
+COMP85 entered bankrupcy at timestep  86  it was located at Portalegre with  risk of  0.4745814463501943
+COMP10 entered bankrupcy at timestep  87  it was located at Braga with  risk of  0.7547339656657246
+COMP15 entered bankrupcy at timestep  88  it was located at Guarda with  risk of  0.5813175125222854
+COMP18 entered bankrupcy at timestep  88  it was located at Viana do Castelo with  risk of  0.6498337238922376
+COMP80 entered bankrupcy at timestep  89  it was located at Setubal with  risk of  0.48225342470552734
+COMP20 entered bankrupcy at timestep  90  it was located at Porto with  risk of  0.5454657828535742
+COMP55 entered bankrupcy at timestep  90  it was located at Guarda with  risk of  0.7900677170130842
+COMP58 entered bankrupcy at timestep  94  it was located at Portalegre with  risk of  0.4774666513033369
+COMP63 entered bankrupcy at timestep  95  it was located at Braganca with  risk of  0.6670955386940204
+COMP86 entered bankrupcy at timestep  95  it was located at Vila Real with  risk of  0.7308332821666433
+COMP12 and COMP94 cooperated between each other by swaping offers
+COMP22 and COMP96 cooperated between each other by swaping offers
+COMP98 entered bankrupcy at timestep  108  it was located at Braga with  risk of  0.9382873505108408
+COMP60 entered bankrupcy at timestep  110  it was located at Lisboa with  risk of  0.4898993269793681
+COMP89 entered bankrupcy at timestep  116  it was located at Guarda with  risk of  0.905115254955655
+COMP76 entered bankrupcy at timestep  118  it was located at Aveiro with  risk of  0.9104301237930853
+COMP26 entered bankrupcy at timestep  120  it was located at Portalegre with  risk of  0.49626869433934606
+COMP51 and COMP97 cooperated between each other by swaping offers
+COMP14 and COMP96 cooperated between each other by swaping offers
+COMP13 entered bankrupcy at timestep  131  it was located at Portalegre with  risk of  0.6940041399996364
+COMP83 entered bankrupcy at timestep  131  it was located at Portalegre with  risk of  0.652917744239439
+COMP14 and COMP96 cooperated between each other by swaping offers
+COMP79 entered bankrupcy at timestep  132  it was located at Setubal with  risk of  0.940761280154387
+COMP96 and COMP43 cooperated between each other by swaping offers
+COMP5 entered bankrupcy at timestep  138  it was located at Portalegre with  risk of  0.4732713348985923
+COMP92 entered bankrupcy at timestep  142  it was located at Faro with  risk of  0.6603915338432078
+COMP68 entered bankrupcy at timestep  143  it was located at Viseu with  risk of  0.9846298718353965
+COMP19 entered bankrupcy at timestep  145  it was located at Aveiro with  risk of  0.5252074682177515
+COMP51 and COMP81 cooperated between each other by swaping offers
+COMP74 entered bankrupcy at timestep  151  it was located at Porto with  risk of  0.0338403832916947
+COMP39 entered bankrupcy at timestep  152  it was located at Castelo Branco with  risk of  0.9787326714496516
+COMP65 entered bankrupcy at timestep  156  it was located at Porto with  risk of  0.6474772322471244
+COMP50 entered bankrupcy at timestep  158  it was located at Lisboa with  risk of  0.14421011055907418
+COMP36 entered bankrupcy at timestep  163  it was located at Faro with  risk of  0.49709046201990914

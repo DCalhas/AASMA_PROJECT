@@ -16,14 +16,9 @@ for i in range(2):
 for i in range(1):
 	gc.collect()
 	import world_set
-	clients, companies = world_set.setupWorld(50, 4, verbose=True, learnQ=True)
-
-	for c in companies:
-		if(c.getLearning()):
-			c_learn = c
+	clients, companies = world_set.setupWorld(50, 4, verbose=True, learnQ=False)
 
 	for j in range(200):
-		c_learn.updateRiskAccordingToQ(companies)
 		world_set.step(clients, companies, verbose=False)
 
 	rankings = world_set.generateStatesByActives(companies)
@@ -39,8 +34,10 @@ plt.bar(["Wins", "Losses"], winsVSlosses)
 plt.xlabel("Local")
 plt.ylabel("Number wins")
 plt.title("Number wins of the RL company")
-plt.show()
+#plt.show()
 
+
+print(winsVSlosses[0])
 
 
 
